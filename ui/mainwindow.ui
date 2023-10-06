@@ -47,10 +47,16 @@
          </font>
         </property>
         <property name="styleSheet">
-         <string notr="true">image: url(:/res/img/book.png);</string>
+         <string notr="true">image: url(:/res/img/book.png);
+color: rgb(0, 0, 0);</string>
         </property>
         <property name="text">
-         <string>Livres</string>
+         <string>
+
+
+
+
+Livres</string>
         </property>
        </widget>
        <widget class="QPushButton" name="membre_btn">
@@ -69,10 +75,18 @@
          </font>
         </property>
         <property name="styleSheet">
-         <string notr="true">image: url(:/res/img/uni.png);</string>
+         <string notr="true">image: url(:/res/img/uni.png);
+color: rgb(0, 0, 0);</string>
         </property>
         <property name="text">
-         <string>Membres</string>
+         <string>
+
+
+
+
+
+
+Membres</string>
         </property>
        </widget>
        <widget class="QPushButton" name="emprunt_btn">
@@ -91,10 +105,16 @@
          </font>
         </property>
         <property name="styleSheet">
-         <string notr="true">image: url(:/res/img/emprunter.png);</string>
+         <string notr="true">image: url(:/res/img/emprunter.png);
+color: rgb(0, 0, 0);</string>
         </property>
         <property name="text">
-         <string>Emprunts</string>
+         <string>
+
+
+
+
+Emprunts</string>
         </property>
        </widget>
       </widget>
