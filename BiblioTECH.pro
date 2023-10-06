@@ -9,22 +9,33 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    manager/DatabaseManager.cpp \
     main.cpp \
-    mainwindow.cpp
+    model/auteur.cpp \
+    ui/auteurwindow.cpp \
+    ui/livrewindow.cpp \
+    ui/mainwindow.cpp \
+    manager/MembreManager.cpp
 
 HEADERS += \
-    abonnement.h \
-    abonnementmembre.h \
-    auteur.h \
-    categorie.h \
-    editeur.h \
-    langue.h \
-    livre.h \
-    mainwindow.h \
-    membre.h
+    manager/DatabaseManager.h \
+    model/abonnement.h \
+    model/abonnementmembre.h \
+    model/auteur.h \
+    model/categorie.h \
+    model/editeur.h \
+    model/langue.h \
+    model/livre.h \
+    ui/auteurwindow.h \
+    ui/livrewindow.h \
+    ui/mainwindow.h \
+    manager/MembreManager.h \
+    model/membre.h
 
 FORMS += \
-    mainwindow.ui
+    ui/auteurwindow.ui \
+    ui/livrewindow.ui \
+    ui/mainwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -32,6 +43,4 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 RESOURCES += \
-    database.qrc \
-    icones.qrc \
-    img.qrc
+    qrc/img.qrc

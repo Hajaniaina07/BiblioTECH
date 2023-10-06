@@ -28,6 +28,14 @@ private slots:
 
     void on_lb_accueil_clicked();
 
+    void on_lb_categorie_clicked();
+
+    void on_lb_auteur_clicked();
+
+    void on_lb_editeur_clicked();
+
+    void on_lb_langue_clicked();
+
 private:
     Ui::MainWindow *ui;
     QSqlDatabase db;

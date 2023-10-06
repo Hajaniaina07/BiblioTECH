@@ -20,7 +20,7 @@
    <string>BiblioTECH</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="img.qrc">
+   <iconset resource="../qrc/img.qrc">
     <normaloff>:/res/img/logo1.png</normaloff>:/res/img/logo1.png</iconset>
   </property>
   <property name="styleSheet">
@@ -128,7 +128,7 @@
        <widget class="QPushButton" name="lb_categorie">
         <property name="geometry">
          <rect>
-          <x>450</x>
+          <x>570</x>
           <y>0</y>
           <width>91</width>
           <height>31</height>
@@ -141,7 +141,7 @@
        <widget class="QPushButton" name="lb_auteur">
         <property name="geometry">
          <rect>
-          <x>570</x>
+          <x>450</x>
           <y>0</y>
           <width>91</width>
           <height>31</height>
@@ -217,7 +217,7 @@
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources>
-  <include location="img.qrc"/>
+  <include location="../qrc/img.qrc"/>
  </resources>
  <connections/>
 </ui>
