@@ -6,26 +6,218 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>946</width>
+    <height>517</height>
    </rect>
+  </property>
+  <property name="font">
+   <font>
+    <family>Segoe Script</family>
+    <pointsize>11</pointsize>
+   </font>
   </property>
   <property name="windowTitle">
    <string>BiblioTECH</string>
   </property>
-  <widget class="QWidget" name="centralwidget"/>
+  <property name="windowIcon">
+   <iconset resource="img.qrc">
+    <normaloff>:/res/img/logo1.png</normaloff>:/res/img/logo1.png</iconset>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-image: url(:/res/img/background.png);</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0">
+     <widget class="QStackedWidget" name="principal">
+      <widget class="QWidget" name="accueil">
+       <widget class="QPushButton" name="livre_btn">
+        <property name="geometry">
+         <rect>
+          <x>40</x>
+          <y>100</y>
+          <width>191</width>
+          <height>241</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Segoe Script</family>
+          <pointsize>18</pointsize>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">image: url(:/res/img/book.png);</string>
+        </property>
+        <property name="text">
+         <string>Livres</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="membre_btn">
+        <property name="geometry">
+         <rect>
+          <x>320</x>
+          <y>70</y>
+          <width>281</width>
+          <height>311</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Segoe Script</family>
+          <pointsize>18</pointsize>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">image: url(:/res/img/uni.png);</string>
+        </property>
+        <property name="text">
+         <string>Membres</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="emprunt_btn">
+        <property name="geometry">
+         <rect>
+          <x>690</x>
+          <y>100</y>
+          <width>191</width>
+          <height>241</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Segoe Script</family>
+          <pointsize>18</pointsize>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">image: url(:/res/img/emprunter.png);</string>
+        </property>
+        <property name="text">
+         <string>Emprunts</string>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="livre">
+       <widget class="QPushButton" name="lb_accueil">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>91</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Accueil</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="lb_ajouter">
+        <property name="geometry">
+         <rect>
+          <x>320</x>
+          <y>0</y>
+          <width>91</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Ajouter</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="lb_categorie">
+        <property name="geometry">
+         <rect>
+          <x>450</x>
+          <y>0</y>
+          <width>91</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Catégorie</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="lb_auteur">
+        <property name="geometry">
+         <rect>
+          <x>570</x>
+          <y>0</y>
+          <width>91</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Auteur</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="lb_editeur">
+        <property name="geometry">
+         <rect>
+          <x>690</x>
+          <y>0</y>
+          <width>91</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Editeur</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="lb_langue">
+        <property name="geometry">
+         <rect>
+          <x>810</x>
+          <y>0</y>
+          <width>91</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Langue</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="l_pageTitle">
+        <property name="geometry">
+         <rect>
+          <x>140</x>
+          <y>0</y>
+          <width>121</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Segoe Script</family>
+          <pointsize>26</pointsize>
+          <underline>false</underline>
+         </font>
+        </property>
+        <property name="text">
+         <string>Livres</string>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="membres"/>
+      <widget class="QWidget" name="emprunts"/>
+     </widget>
+    </item>
+   </layout>
+  </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>946</width>
      <height>21</height>
     </rect>
    </property>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
- <resources/>
+ <resources>
+  <include location="img.qrc"/>
+ </resources>
  <connections/>
 </ui>
