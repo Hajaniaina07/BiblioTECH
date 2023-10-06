@@ -6,6 +6,9 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    db = QSqlDatabase::addDatabase("QODBC");
+    db.setDatabaseName("DRIVER={Microsoft Access Driver (*.mdb, *.accdb)};FIL={MS Access};DBQ=D:\\BiblioTECH\\biblio.accdb");
+    db.open() ? qDebug("db open"): qDebug("Error opening database: %s", qPrintable(db.lastError().text()));
 }
 
 MainWindow::~MainWindow()

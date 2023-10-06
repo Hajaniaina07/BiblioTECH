@@ -1,4 +1,4 @@
-QT       += core gui
+QT       += core gui sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -13,7 +13,15 @@ SOURCES += \
     mainwindow.cpp
 
 HEADERS += \
-    mainwindow.h
+    abonnement.h \
+    abonnementmembre.h \
+    auteur.h \
+    categorie.h \
+    editeur.h \
+    langue.h \
+    livre.h \
+    mainwindow.h \
+    membre.h
 
 FORMS += \
     mainwindow.ui
@@ -24,5 +32,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 RESOURCES += \
+    database.qrc \
     icones.qrc \
     img.qrc
