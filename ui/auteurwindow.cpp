@@ -93,7 +93,6 @@ void AuteurWindow::on_editButton_clicked()
         QString pseudo = ui->tableWidget->item(row, 2)->data(Qt::DisplayRole).toString();
         QString naissance = ui->tableWidget->item(row, 3)->data(Qt::DisplayRole).toString();
 
-        qDebug() << nom;qDebug() << prenom;qDebug() << pseudo;qDebug() << naissance;
         bool edited = (auteur.nom!=nom || auteur.prenom!=prenom || auteur.pseudo != pseudo
                        || auteur.naissance.toString("dd/MM/yyyy") != naissance);
 

@@ -25,6 +25,7 @@ HEADERS += \
     model/abonnement.h \
     model/abonnementmembre.h \
     model/auteur.h \
+    model/baseModel.h \
     model/categorie.h \
     model/editeur.h \
     model/langue.h \

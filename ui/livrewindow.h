@@ -7,6 +7,7 @@
 #include "model/Categorie.h"
 #include "model/Editeur.h"
 #include "model/Langue.h"
+#include "model/baseModel.h"
 
 namespace Ui {
 class livrewindow;
@@ -21,11 +22,22 @@ public:
     ~LivreWindow();
 
 private slots:
-    void on_pushButton_clicked();
     void getList();
     void getListCategorie();
     void getListEditeur();
     void getListLangue();
+    void addNew(QString nouveau);
+    void updateData();
+    void deleteData();
+    bool nomExist(QString nom, QList<BaseModel> baseModels);
+
+    void on_addButton_clicked();
+
+    void on_editButton_clicked();
+
+    void on_deleteButton_clicked();
+
+    void on_tableWidget_cellClicked(int row);
 
 private:
     Ui::livrewindow *ui;
@@ -33,6 +45,8 @@ private:
     QList<Categorie> listeCategories;
     QList<Editeur> listeEditeurs;
     QList<Langue> listeLangues;
+    QList<BaseModel> baseModels;
+    BaseModel baseModel;
 };
 
 #endif // LIVREWINDOW_H
