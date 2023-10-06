@@ -6,7 +6,7 @@ LivreWindow::LivreWindow(const QString& additionalParameter, QWidget *parent)
     : QMainWindow(parent),
     ui(new Ui::livrewindow)
 {
-    setFixedSize(300,400);
+    setFixedSize(250,300);
     ui->setupUi(this);
 }
 
@@ -17,7 +17,7 @@ LivreWindow::~LivreWindow()
 
 void LivreWindow::on_pushButton_clicked()
 {
-    QString nouveau = ui->lineEdit->text();
+    QString nouveau = ui->newEdit->text();
     qDebug() << "Le texte du lineEdit est : " << nouveau;
 }
 
