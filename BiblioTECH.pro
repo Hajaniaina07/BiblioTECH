@@ -12,6 +12,9 @@ SOURCES += \
     manager/DatabaseManager.cpp \
     main.cpp \
     model/auteur.cpp \
+    model/categorie.cpp \
+    model/editeur.cpp \
+    model/langue.cpp \
     ui/auteurwindow.cpp \
     ui/livrewindow.cpp \
     ui/mainwindow.cpp \

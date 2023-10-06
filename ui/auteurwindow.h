@@ -1,5 +1,3 @@
-// auteurwindow.h
-
 #ifndef AUTEURWINDOW_H
 #define AUTEURWINDOW_H
 
