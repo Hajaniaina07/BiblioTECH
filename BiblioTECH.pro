@@ -17,6 +17,7 @@ SOURCES += \
     model/langue.cpp \
     model/utilisateur.cpp \
     ui/auteurwindow.cpp \
+    ui/livredetail.cpp \
     ui/livrewindow.cpp \
     ui/mainwindow.cpp \
     manager/MembreManager.cpp
@@ -33,6 +34,7 @@ HEADERS += \
     model/livre.h \
     model/utilisateur.h \
     ui/auteurwindow.h \
+    ui/livredetail.h \
     ui/livrewindow.h \
     ui/mainwindow.h \
     manager/MembreManager.h \
@@ -40,6 +42,7 @@ HEADERS += \
 
 FORMS += \
     ui/auteurwindow.ui \
+    ui/livredetail.ui \
     ui/livrewindow.ui \
     ui/mainwindow.ui
 

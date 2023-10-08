@@ -6,6 +6,7 @@
 #include <QSqlTableModel>
 #include <QSqlError>
 #include <QDebug>
+#include "ui/livredetail.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -38,7 +39,7 @@ private slots:
 
     void on_pushButton_clicked();
 
-    void on_label_linkActivated(const QString &link);
+    void on_lb_ajouter_clicked();
 
 private:
     Ui::MainWindow *ui;

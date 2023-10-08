@@ -32,7 +32,7 @@
    <string>BiblioTECH</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="../qrc/img.qrc">
+   <iconset resource="../qrc/logo.qrc">
     <normaloff>:/res/img/logo1.png</normaloff>:/res/img/logo1.png</iconset>
   </property>
   <property name="styleSheet">
@@ -395,7 +395,7 @@ Emprunts</string>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources>
-  <include location="../qrc/img.qrc"/>
+  <include location="../qrc/logo.qrc"/>
  </resources>
  <connections/>
 </ui>

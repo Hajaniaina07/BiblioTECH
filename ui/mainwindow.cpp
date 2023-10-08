@@ -91,9 +91,12 @@ void MainWindow::on_pushButton_clicked()
 }
 
 
-void MainWindow::on_label_linkActivated(const QString &link)
-{
-    ui->principal->setCurrentIndex(0);
-}
 
+void MainWindow::on_lb_ajouter_clicked()
+{
+    LivreDetail *w  = new LivreDetail(0,this);
+    w->setWindowTitle("Nouveau livre");
+    w->setAttribute(Qt::WA_DeleteOnClose);
+    w->show();
+}
 
