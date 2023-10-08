@@ -97,8 +97,3 @@ void MainWindow::on_label_linkActivated(const QString &link)
 }
 
 
-void MainWindow::on_lb_ajouter_clicked()
-{
-
-}
-
