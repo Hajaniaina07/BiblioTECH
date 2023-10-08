@@ -20,6 +20,13 @@ public:
     QString resume;
     int quantite;
 
+    Livre();
+    Livre(int id, const Auteur& auteur, const Categorie& categorie, const Editeur& editeur, const Langue& langue,
+          const QString& titre, int page, const QDate& publication, const QString& resume, int quantite);
+    Livre(const Auteur& auteur, const Categorie& categorie, const Editeur& editeur, const Langue& langue,
+          const QString& titre, int page, const QDate& publication, const QString& resume, int quantite);
+
+
 
     static void addLivre(const Livre& livre);
     static QList<Livre> getAllLivres();

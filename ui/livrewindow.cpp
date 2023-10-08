@@ -79,6 +79,7 @@ void LivreWindow::on_addButton_clicked()
         bool exist = nomExist(nouveau,baseModels);
         if(!exist){
             addNew(nouveau);
+            ui->newEdit->clear();
         }
     }
 }

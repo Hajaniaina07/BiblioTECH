@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QDate>
+#include <QComboBox>
 #include "model/Auteur.h"
 #include "model/categorie.h"
 #include "model/editeur.h"
@@ -21,9 +22,13 @@ public:
     explicit LivreDetail(const int& page,const int& livreID,QWidget *parent = nullptr);
     ~LivreDetail();
 
+    int getSelectedItem(QComboBox* comboBox);
+
 private slots:
     void getList();
     void getLivre(int livreId);
+
+    void on_addLivreButton_clicked();
 
 private:
     Ui::LivreDetail *ui;

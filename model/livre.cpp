@@ -1,5 +1,25 @@
 #include "Livre.h"
 
+
+
+Livre::Livre()
+{
+}
+
+Livre::Livre(int id, const Auteur& auteur, const Categorie& categorie, const Editeur& editeur, const Langue& langue,
+const QString& titre, int page, const QDate& publication, const QString& resume, int quantite)
+:id(id),auteur(auteur), categorie(categorie), editeur(editeur), langue(langue), titre(titre), page(page),
+publication(publication), resume(resume), quantite(quantite)
+{
+}
+
+Livre::Livre(const Auteur& auteur, const Categorie& categorie, const Editeur& editeur, const Langue& langue,
+const QString& titre, int page, const QDate& publication, const QString& resume, int quantite)
+:auteur(auteur), categorie(categorie), editeur(editeur), langue(langue), titre(titre), page(page),
+publication(publication), resume(resume), quantite(quantite)
+{
+}
+
 void Livre::addLivre(const Livre& livre) {
     QSqlQuery query;
     query.prepare("INSERT INTO Livre (AUTEUR_ID, CATEGORIE_ID, EDITEUR_ID, LANGUE_ID, titre, page, publication, resume, quantite) "

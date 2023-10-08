@@ -1,5 +1,6 @@
 #include "livredetail.h"
 #include "ui_livredetail.h"
+#include "model/livre.h"
 #include "manager/DatabaseManager.h"
 
 LivreDetail::LivreDetail(const int& page,const int& livreID, QWidget *parent) :
@@ -54,3 +55,36 @@ void LivreDetail::getLivre(int livreId)
         }
     }
 }
+
+void LivreDetail::on_addLivreButton_clicked()
+{
+    int indexSelectedAuteur = getSelectedItem(ui->auteurComboBox);
+    int indexSelectedCategorie = getSelectedItem(ui->genreComboBox);
+    int indexSelectedEditeur = getSelectedItem(ui->editeurComboBox);
+    int indexSelectedLangue = getSelectedItem(ui->langueComboBox);
+    int page = ui->pageSpinBox->value();
+    int quantite = ui->quantiteSpinBox->value();
+    QString titre = ui->titreEdit->text();
+    QString resume = ui->resumeTextEdit->toPlainText();
+    QDate publication = ui->publicationDateEdit->date();
+    Auteur auteur = listeAuteurs[indexSelectedAuteur];
+    Categorie categorie = listeCategories[indexSelectedCategorie];
+    Editeur editeur = listeEditeurs[indexSelectedEditeur];
+    Langue langue = listeLangues[indexSelectedLangue];
+    Livre livre = Livre(auteur, categorie, editeur, langue, titre, page, publication, resume, quantite);
+    if(DatabaseManager::openConnection()){
+        Livre::addLivre(livre);
+        DatabaseManager::closeConnection();
+    }
+}
+
+int LivreDetail::getSelectedItem(QComboBox* comboBox)
+{
+    int indexSelected = comboBox->currentIndex();
+    if (indexSelected > 0)
+    {
+        return indexSelected - 1;
+    }
+    return -1;
+}
+

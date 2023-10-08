@@ -285,7 +285,7 @@
        </rect>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton">
+     <widget class="QPushButton" name="addLivreButton">
       <property name="geometry">
        <rect>
         <x>200</x>
@@ -335,7 +335,7 @@
      <zorder>quantiteSpinBox</zorder>
      <zorder>label_9</zorder>
      <zorder>resumeTextEdit</zorder>
-     <zorder>pushButton</zorder>
+     <zorder>addLivreButton</zorder>
     </widget>
     <widget class="QWidget" name="detailPage"/>
    </widget>
