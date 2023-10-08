@@ -1,7 +1,5 @@
 <RCC>
     <qresource prefix="/res">
-        <file>img/book.png</file>
-        <file>img/emprunter.png</file>
-        <file>img/uni.png</file>
+        <file>img/icone.png</file>
     </qresource>
 </RCC>

@@ -90,3 +90,15 @@ void MainWindow::on_pushButton_clicked()
     }
 }
 
+
+void MainWindow::on_label_linkActivated(const QString &link)
+{
+    ui->principal->setCurrentIndex(0);
+}
+
+
+void MainWindow::on_lb_ajouter_clicked()
+{
+
+}
+

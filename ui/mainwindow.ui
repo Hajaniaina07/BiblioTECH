@@ -42,6 +42,9 @@
    <layout class="QGridLayout" name="gridLayout">
     <item row="0" column="0">
      <widget class="QStackedWidget" name="principal">
+      <property name="styleSheet">
+       <string notr="true">background-image: url(:/res/img/background.png);</string>
+      </property>
       <widget class="QWidget" name="login">
        <widget class="QWidget" name="layoutWidget">
         <property name="geometry">
@@ -105,7 +108,11 @@
           </widget>
          </item>
          <item>
-          <widget class="QLineEdit" name="mdpEdit"/>
+          <widget class="QLineEdit" name="mdpEdit">
+           <property name="styleSheet">
+            <string notr="true">font: 12pt &quot;Segoe UI&quot;;</string>
+           </property>
+          </widget>
          </item>
         </layout>
        </widget>
@@ -173,6 +180,9 @@
        <zorder>logo</zorder>
       </widget>
       <widget class="QWidget" name="accueil">
+       <property name="styleSheet">
+        <string notr="true">background-image: url(:/res/img/background.png);</string>
+       </property>
        <widget class="QPushButton" name="livre_btn">
         <property name="geometry">
          <rect>
@@ -261,17 +271,23 @@ Emprunts</string>
        </widget>
       </widget>
       <widget class="QWidget" name="livre">
+       <property name="styleSheet">
+        <string notr="true"/>
+       </property>
        <widget class="QPushButton" name="lb_accueil">
         <property name="geometry">
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>91</width>
-          <height>31</height>
+          <width>121</width>
+          <height>41</height>
          </rect>
         </property>
+        <property name="styleSheet">
+         <string notr="true">image: url(:/res/img/icone.png);</string>
+        </property>
         <property name="text">
-         <string>Accueil</string>
+         <string/>
         </property>
        </widget>
        <widget class="QPushButton" name="lb_ajouter">
@@ -280,7 +296,7 @@ Emprunts</string>
           <x>320</x>
           <y>0</y>
           <width>91</width>
-          <height>31</height>
+          <height>41</height>
          </rect>
         </property>
         <property name="text">
@@ -293,7 +309,7 @@ Emprunts</string>
           <x>570</x>
           <y>0</y>
           <width>91</width>
-          <height>31</height>
+          <height>41</height>
          </rect>
         </property>
         <property name="text">
@@ -306,7 +322,7 @@ Emprunts</string>
           <x>450</x>
           <y>0</y>
           <width>91</width>
-          <height>31</height>
+          <height>41</height>
          </rect>
         </property>
         <property name="text">
@@ -319,7 +335,7 @@ Emprunts</string>
           <x>690</x>
           <y>0</y>
           <width>91</width>
-          <height>31</height>
+          <height>41</height>
          </rect>
         </property>
         <property name="text">
@@ -332,7 +348,7 @@ Emprunts</string>
           <x>810</x>
           <y>0</y>
           <width>91</width>
-          <height>31</height>
+          <height>41</height>
          </rect>
         </property>
         <property name="text">
@@ -342,7 +358,7 @@ Emprunts</string>
        <widget class="QLabel" name="l_pageTitle">
         <property name="geometry">
          <rect>
-          <x>140</x>
+          <x>160</x>
           <y>0</y>
           <width>121</width>
           <height>41</height>
@@ -352,7 +368,7 @@ Emprunts</string>
          <font>
           <family>Segoe Script</family>
           <pointsize>26</pointsize>
-          <underline>false</underline>
+          <underline>true</underline>
          </font>
         </property>
         <property name="text">
