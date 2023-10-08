@@ -293,20 +293,20 @@ Emprunts</string>
        <widget class="QPushButton" name="lb_ajouter">
         <property name="geometry">
          <rect>
-          <x>320</x>
+          <x>150</x>
           <y>0</y>
-          <width>91</width>
+          <width>121</width>
           <height>41</height>
          </rect>
         </property>
         <property name="text">
-         <string>Ajouter</string>
+         <string>Nouveau livre</string>
         </property>
        </widget>
        <widget class="QPushButton" name="lb_categorie">
         <property name="geometry">
          <rect>
-          <x>570</x>
+          <x>610</x>
           <y>0</y>
           <width>91</width>
           <height>41</height>
@@ -319,7 +319,7 @@ Emprunts</string>
        <widget class="QPushButton" name="lb_auteur">
         <property name="geometry">
          <rect>
-          <x>450</x>
+          <x>500</x>
           <y>0</y>
           <width>91</width>
           <height>41</height>
@@ -332,7 +332,7 @@ Emprunts</string>
        <widget class="QPushButton" name="lb_editeur">
         <property name="geometry">
          <rect>
-          <x>690</x>
+          <x>720</x>
           <y>0</y>
           <width>91</width>
           <height>41</height>
@@ -345,7 +345,7 @@ Emprunts</string>
        <widget class="QPushButton" name="lb_langue">
         <property name="geometry">
          <rect>
-          <x>810</x>
+          <x>830</x>
           <y>0</y>
           <width>91</width>
           <height>41</height>
@@ -355,24 +355,70 @@ Emprunts</string>
          <string>Langue</string>
         </property>
        </widget>
-       <widget class="QLabel" name="l_pageTitle">
+       <widget class="QTableWidget" name="tableWidget">
         <property name="geometry">
          <rect>
-          <x>160</x>
+          <x>0</x>
+          <y>50</y>
+          <width>931</width>
+          <height>461</height>
+         </rect>
+        </property>
+        <column>
+         <property name="text">
+          <string>Livre</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Genre</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Auteur</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Page</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Disponible</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Note /5</string>
+         </property>
+        </column>
+       </widget>
+       <widget class="QPushButton" name="pushButton_2">
+        <property name="geometry">
+         <rect>
+          <x>400</x>
           <y>0</y>
-          <width>121</width>
+          <width>80</width>
           <height>41</height>
          </rect>
         </property>
-        <property name="font">
-         <font>
-          <family>Segoe Script</family>
-          <pointsize>26</pointsize>
-          <underline>true</underline>
-         </font>
+        <property name="text">
+         <string>Emprunts</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="pushButton_3">
+        <property name="geometry">
+         <rect>
+          <x>290</x>
+          <y>0</y>
+          <width>91</width>
+          <height>41</height>
+         </rect>
         </property>
         <property name="text">
-         <string>Livres</string>
+         <string>Membres</string>
         </property>
        </widget>
       </widget>
