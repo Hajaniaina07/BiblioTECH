@@ -15,6 +15,7 @@ SOURCES += \
     model/categorie.cpp \
     model/editeur.cpp \
     model/langue.cpp \
+    model/livre.cpp \
     model/utilisateur.cpp \
     ui/auteurwindow.cpp \
     ui/livredetail.cpp \

@@ -94,7 +94,7 @@ void MainWindow::on_pushButton_clicked()
 
 void MainWindow::on_lb_ajouter_clicked()
 {
-    LivreDetail *w  = new LivreDetail(0,this);
+    LivreDetail *w  = new LivreDetail(0,0,this);
     w->setWindowTitle("Nouveau livre");
     w->setAttribute(Qt::WA_DeleteOnClose);
     w->show();
