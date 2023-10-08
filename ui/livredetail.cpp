@@ -8,6 +8,8 @@ LivreDetail::LivreDetail(const int& page,const int& livreID, QWidget *parent) :
 {
     setFixedSize(640,480);
     ui->setupUi(this);
+    ui->pageSpinBox->setMaximum(9999);
+    ui->quantiteSpinBox->setMaximum(9999);
     getList();
     getLivre(livreID);
 }
@@ -75,6 +77,7 @@ void LivreDetail::on_addLivreButton_clicked()
     if(DatabaseManager::openConnection()){
         Livre::addLivre(livre);
         DatabaseManager::closeConnection();
+        this->close();
     }
 }
 
