@@ -36,6 +36,8 @@ private slots:
 
     void on_lb_langue_clicked();
 
+    void on_pushButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     QSqlDatabase db;

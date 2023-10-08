@@ -15,6 +15,7 @@ SOURCES += \
     model/categorie.cpp \
     model/editeur.cpp \
     model/langue.cpp \
+    model/utilisateur.cpp \
     ui/auteurwindow.cpp \
     ui/livrewindow.cpp \
     ui/mainwindow.cpp \
@@ -30,6 +31,7 @@ HEADERS += \
     model/editeur.h \
     model/langue.h \
     model/livre.h \
+    model/utilisateur.h \
     ui/auteurwindow.h \
     ui/livrewindow.h \
     ui/mainwindow.h \
@@ -47,4 +49,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 RESOURCES += \
-    qrc/img.qrc
+    qrc/img.qrc \
+    qrc/logo.qrc

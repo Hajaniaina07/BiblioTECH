@@ -2,6 +2,8 @@
 #include "ui_mainwindow.h"
 #include "ui/livrewindow.h"
 #include "ui/auteurwindow.h"
+#include "model/utilisateur.h"
+#include <QMessageBox>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -19,25 +21,25 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_livre_btn_clicked()
 {
-    ui->principal->setCurrentIndex(1);
+    ui->principal->setCurrentIndex(2);
 }
 
 
 void MainWindow::on_membre_btn_clicked()
 {
-    ui->principal->setCurrentIndex(2);
+    ui->principal->setCurrentIndex(3);
 }
 
 
 void MainWindow::on_emprunt_btn_clicked()
 {
-    ui->principal->setCurrentIndex(3);
+    ui->principal->setCurrentIndex(4);
 }
 
 
 void MainWindow::on_lb_accueil_clicked()
 {
-    ui->principal->setCurrentIndex(0);
+    ui->principal->setCurrentIndex(1);
 }
 
 
@@ -73,5 +75,18 @@ void MainWindow::on_lb_langue_clicked()
     w->setWindowTitle("Langues");
     w->setAttribute(Qt::WA_DeleteOnClose);
     w->show();
+}
+
+
+void MainWindow::on_pushButton_clicked()
+{
+    QString login = ui->loginEdit->text();
+    QString mdp = ui->mdpEdit->text();
+    Utilisateur utilisateur = Utilisateur(login,mdp);
+    if(utilisateur.isConnected()){
+        ui->principal->setCurrentIndex(1);
+    }else{
+        QMessageBox::critical(this, "Erreur de connection", "Login ou mot de passe incorecte");
+    }
 }
 

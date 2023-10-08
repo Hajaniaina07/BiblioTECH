@@ -6,9 +6,21 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>946</width>
-    <height>517</height>
+    <width>950</width>
+    <height>550</height>
    </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>950</width>
+    <height>550</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>950</width>
+    <height>550</height>
+   </size>
   </property>
   <property name="font">
    <font>
@@ -24,12 +36,142 @@
     <normaloff>:/res/img/logo1.png</normaloff>:/res/img/logo1.png</iconset>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-image: url(:/res/img/background.png);</string>
+   <string notr="true"/>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
     <item row="0" column="0">
      <widget class="QStackedWidget" name="principal">
+      <widget class="QWidget" name="login">
+       <widget class="QWidget" name="layoutWidget">
+        <property name="geometry">
+         <rect>
+          <x>290</x>
+          <y>310</y>
+          <width>361</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <item>
+          <widget class="QLabel" name="label_2">
+           <property name="font">
+            <font>
+             <family>Segoe Script</family>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color: rgb(62, 62, 62);</string>
+           </property>
+           <property name="text">
+            <string>Nom d'utilisateur  :</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="loginEdit">
+           <property name="styleSheet">
+            <string notr="true">font: 11pt &quot;Segoe UI&quot;;</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="layoutWidget_2">
+        <property name="geometry">
+         <rect>
+          <x>290</x>
+          <y>360</y>
+          <width>361</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_3">
+         <item>
+          <widget class="QLabel" name="label_3">
+           <property name="font">
+            <font>
+             <family>Segoe Script</family>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color: rgb(62, 62, 62);</string>
+           </property>
+           <property name="text">
+            <string>Mot de passe  :</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="mdpEdit"/>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QPushButton" name="pushButton">
+        <property name="geometry">
+         <rect>
+          <x>370</x>
+          <y>410</y>
+          <width>201</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font: 12pt &quot;Segoe UI&quot;;</string>
+        </property>
+        <property name="text">
+         <string>Se connecter</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="logo">
+        <property name="geometry">
+         <rect>
+          <x>210</x>
+          <y>80</y>
+          <width>521</width>
+          <height>201</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">image: url(:/res/img/logo1.png);</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+       <widget class="QWidget" name="widget" native="true">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>-1</y>
+          <width>931</width>
+          <height>550</height>
+         </rect>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>550</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>550</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-image: url(:/res/img/background.png);</string>
+        </property>
+       </widget>
+       <zorder>widget</zorder>
+       <zorder>layoutWidget</zorder>
+       <zorder>layoutWidget_2</zorder>
+       <zorder>pushButton</zorder>
+       <zorder>logo</zorder>
+      </widget>
       <widget class="QWidget" name="accueil">
        <widget class="QPushButton" name="livre_btn">
         <property name="geometry">
@@ -229,7 +371,7 @@ Emprunts</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>946</width>
+     <width>950</width>
      <height>21</height>
     </rect>
    </property>
