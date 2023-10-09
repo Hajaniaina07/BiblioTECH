@@ -1,6 +1,9 @@
 #include "newempruntwindow.h"
 #include "ui_newempruntwindow.h"
 #include "manager/DatabaseManager.h"
+#include "model/emprunt.h"
+#include "util/util.h"
+#include <QMessageBox>
 
 NewEmpruntWindow::NewEmpruntWindow(const int& page,Livre& livre,Membre& membre, QWidget *parent) :
     QMainWindow(parent),ui(new Ui::NewEmpruntWindow),livre(livre),membre(membre)
@@ -68,5 +71,12 @@ void NewEmpruntWindow::on_validateEmpruntButton_clicked()
     livre = listeLivres[indexSelectedLivre];
     membre = listeMembres[indexSelectedMembre];
     QDate dateEmprunt = ui->dateUmpruntEdit->date();
+    Emprunt emprunt = Emprunt(livre,membre,dateEmprunt);
+    if(DatabaseManager::openConnection()){
+        Emprunt::addEmprunt(emprunt);
+        DatabaseManager::closeConnection();
+        QMessageBox::information(this, "Succès", "Emprunt enregistré !");
+        this->close();
+    }
 }
 

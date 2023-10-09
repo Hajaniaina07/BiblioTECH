@@ -41,7 +41,8 @@ void MainWindow::on_emprunt_btn_clicked()
 
 void MainWindow::on_lb_accueil_clicked()
 {
-//    ui->principal->setCurrentIndex(1);
+    ui->principal->setCurrentIndex(2);
+    getListLivre();
 }
 
 

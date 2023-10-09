@@ -3,7 +3,6 @@
 
 #include "model/Livre.h"
 #include "model/membre.h"
-#include "util/util.h"
 #include <QMainWindow>
 
 namespace Ui {
