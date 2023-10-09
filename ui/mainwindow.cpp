@@ -41,7 +41,7 @@ void MainWindow::on_emprunt_btn_clicked()
 
 void MainWindow::on_lb_accueil_clicked()
 {
-    ui->principal->setCurrentIndex(1);
+//    ui->principal->setCurrentIndex(1);
 }
 
 
@@ -145,8 +145,6 @@ void  MainWindow::getListLivre()
 void MainWindow::on_livreTableWidget_cellDoubleClicked(int row, int column)
 {
     Livre livre = listeLivres.at(row);
-    qDebug() << livre.auteur.id;
-    qDebug() << livre.auteur.nom;
     LivreDetail *w  = new LivreDetail(1,livre,this);
     w->setWindowTitle("Détail du livre");
     w->setAttribute(Qt::WA_DeleteOnClose);

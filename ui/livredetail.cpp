@@ -2,6 +2,7 @@
 #include "ui_livredetail.h"
 #include "model/livre.h"
 #include "manager/DatabaseManager.h"
+#include <QMessageBox>
 
 LivreDetail::LivreDetail(const int& page,Livre& livre, QWidget *parent) :
     QMainWindow(parent), ui(new Ui::LivreDetail), page(page),livre(livre)
@@ -35,24 +36,32 @@ void LivreDetail::getList()
     if(DatabaseManager::openConnection()){
         listeAuteurs = Auteur::getAllAuteurs();
         ui->auteurComboBox->addItem("");
+        ui->auteurComboBox_2->addItem("");
         for(const Auteur auteur : listeAuteurs){
             QString nomComplet = QString("%1 %2 (%3)").arg(auteur.nom).arg(auteur.prenom).arg(auteur.pseudo);
             ui->auteurComboBox->addItem(nomComplet);
+            ui->auteurComboBox_2->addItem(nomComplet);
         }
         ui->genreComboBox->addItem("");
+        ui->genreComboBox_2->addItem("");
         listeCategories = Categorie::getAllCategories();
         for(const Categorie categorie : listeCategories){
             ui->genreComboBox->addItem(QString("%1").arg(categorie.nom));
+            ui->genreComboBox_2->addItem(QString("%1").arg(categorie.nom));
         }
         ui->editeurComboBox->addItem("");
+        ui->editeurComboBox_2->addItem("");
         listeEditeurs = Editeur::getAllEditeurs();
         for(const Editeur editeur : listeEditeurs){
             ui->editeurComboBox->addItem(QString("%1").arg(editeur.nom));
+            ui->editeurComboBox_2->addItem(QString("%1").arg(editeur.nom));
         }
         ui->langueComboBox->addItem("");
+        ui->langueComboBox_2->addItem("");
         listeLangues = Langue::getAllLangues();
         for(const Langue langue : listeLangues){
             ui->langueComboBox->addItem(QString("%1").arg(langue.nom));
+            ui->langueComboBox_2->addItem(QString("%1").arg(langue.nom));
         }
         DatabaseManager::closeConnection();
     }
@@ -124,5 +133,74 @@ int LivreDetail::getSelectedItem(QComboBox* comboBox)
         return indexSelected - 1;
     }
     return -1;
+}
+
+
+void LivreDetail::on_editLivreButton_clicked()
+{
+    int indexSelectedAuteur = getIndex(livre.auteur.id, listeAuteurs)+1;
+    int indexSelectedCategorie = getIndex(livre.categorie.id, listeCategories)+1;
+    int indexSelectedEditeur = getIndex(livre.editeur.id, listeEditeurs)+1;
+    int indexSelectedLangue = getIndex(livre.langue.id, listeLangues)+1;
+    ui->stackedWidget->setCurrentIndex(2);
+    ui->auteurComboBox_2->setCurrentIndex(indexSelectedAuteur);
+    ui->genreComboBox_2->setCurrentIndex(indexSelectedCategorie);
+    ui->editeurComboBox_2->setCurrentIndex(indexSelectedEditeur);
+    ui->langueComboBox_2->setCurrentIndex(indexSelectedLangue);
+    ui->pageSpinBox_2->setValue(livre.page);
+    ui->quantiteSpinBox_2->setValue(livre.quantite);
+    ui->titreEdit_2->setText(livre.titre);
+    ui->resumeTextEdit_2->setPlainText(livre.resume);
+    ui->publicationDateEdit_2->setDate(livre.publication);
+}
+
+template<typename T>
+int LivreDetail::getIndex(int id, const QList<T>& list) {
+    for (int i = 0; i < list.size(); ++i) {
+        if (list[i].id == id) {
+        return i;
+        }
+    }
+    return -1;
+}
+
+
+void LivreDetail::on_cancelButton_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(1);
+}
+
+
+void LivreDetail::on_saveEditButton_clicked()
+{
+    QMessageBox::StandardButton msgBox;
+    msgBox = QMessageBox::question(this, "Confirmation", "Voulez-vous vraiment enregistrer les modifications?", QMessageBox::Yes|QMessageBox::No);
+    if (msgBox  == QMessageBox::Yes) {
+        int indexSelectedAuteur = getSelectedItem(ui->auteurComboBox_2);
+        int indexSelectedCategorie = getSelectedItem(ui->genreComboBox_2);
+        int indexSelectedEditeur = getSelectedItem(ui->editeurComboBox_2);
+        int indexSelectedLangue = getSelectedItem(ui->langueComboBox_2);
+        int page = ui->pageSpinBox_2->value();
+        int quantite = ui->quantiteSpinBox_2->value();
+        QString titre = ui->titreEdit_2->text();
+        QString resume = ui->resumeTextEdit_2->toPlainText();
+        QDate publication = ui->publicationDateEdit_2->date();
+        Auteur auteur = listeAuteurs[indexSelectedAuteur];
+        Categorie categorie = listeCategories[indexSelectedCategorie];
+        Editeur editeur = listeEditeurs[indexSelectedEditeur];
+        Langue langue = listeLangues[indexSelectedLangue];
+        livre = Livre(livre.id, auteur, categorie, editeur, langue, titre, page, publication, resume, quantite);
+        if(DatabaseManager::openConnection()){
+            Livre::updateLivre(livre);
+            DatabaseManager::closeConnection();
+            setDetailLivre();
+            QMessageBox::information(this, "Succès", "Modification enregistré !");
+            ui->stackedWidget->setCurrentIndex(1);
+        }
+    }else{
+        ui->stackedWidget->setCurrentIndex(1);
+    }
+
+
 }
 

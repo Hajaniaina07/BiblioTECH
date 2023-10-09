@@ -24,12 +24,22 @@ public:
 
     int getSelectedItem(QComboBox* comboBox);
     void setDetailLivre();
+    template<typename T>
+    int getIndex(int id, const QList<T>& list);
 
 private slots:
     void getList();
     void getLivre(Livre livre);
 
     void on_addLivreButton_clicked();
+
+    void on_editLivreButton_clicked();
+
+    void on_cancelButton_clicked();
+
+    void on_saveEditButton_clicked();
+
+    void on_deleteButton_clicked();
 
 private:
     Ui::LivreDetail *ui;
