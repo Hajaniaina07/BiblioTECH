@@ -31,6 +31,7 @@ LivreDetail::~LivreDetail()
     delete ui;
 }
 
+
 void LivreDetail::getList()
 {
     if(DatabaseManager::openConnection()){

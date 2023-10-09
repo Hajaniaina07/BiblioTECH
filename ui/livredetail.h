@@ -39,8 +39,6 @@ private slots:
 
     void on_saveEditButton_clicked();
 
-    void on_deleteButton_clicked();
-
 private:
     Ui::LivreDetail *ui;
     int page;

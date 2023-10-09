@@ -400,7 +400,7 @@ Emprunts</string>
         </column>
         <column>
          <property name="text">
-          <string>Note /5</string>
+          <string>Note /10</string>
          </property>
         </column>
         <column>
