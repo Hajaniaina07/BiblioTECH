@@ -1,7 +1,9 @@
 #include "livredetail.h"
 #include "ui_livredetail.h"
 #include "model/livre.h"
+#include "model/membre.h"
 #include "manager/DatabaseManager.h"
+#include "ui/newempruntwindow.h"
 #include <QMessageBox>
 
 LivreDetail::LivreDetail(const int& page,Livre& livre, QWidget *parent) :
@@ -38,7 +40,7 @@ void LivreDetail::getList()
         listeAuteurs = Auteur::getAllAuteurs();
         ui->auteurComboBox->addItem("");
         ui->auteurComboBox_2->addItem("");
-        for(const Auteur auteur : listeAuteurs){
+        for(const Auteur &auteur : listeAuteurs){
             QString nomComplet = QString("%1 %2 (%3)").arg(auteur.nom).arg(auteur.prenom).arg(auteur.pseudo);
             ui->auteurComboBox->addItem(nomComplet);
             ui->auteurComboBox_2->addItem(nomComplet);
@@ -203,5 +205,15 @@ void LivreDetail::on_saveEditButton_clicked()
     }
 
 
+}
+
+
+void LivreDetail::on_enregistrerEmpruntButton_clicked()
+{
+    Membre membre = Membre();
+    NewEmpruntWindow *w  = new NewEmpruntWindow(0,livre, membre,this);
+    w->setWindowTitle("Emprunt");
+        w->setAttribute(Qt::WA_DeleteOnClose);
+    w->show();
 }
 

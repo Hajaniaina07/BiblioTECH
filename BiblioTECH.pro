@@ -14,14 +14,18 @@ SOURCES += \
     model/auteur.cpp \
     model/categorie.cpp \
     model/editeur.cpp \
+    model/emprunt.cpp \
     model/langue.cpp \
     model/livre.cpp \
+    model/membre.cpp \
     model/utilisateur.cpp \
     ui/auteurwindow.cpp \
     ui/livredetail.cpp \
     ui/livrewindow.cpp \
     ui/mainwindow.cpp \
-    manager/MembreManager.cpp
+    manager/MembreManager.cpp \
+    ui/newempruntwindow.cpp \
+    util/util.cpp
 
 HEADERS += \
     manager/DatabaseManager.h \
@@ -31,6 +35,7 @@ HEADERS += \
     model/baseModel.h \
     model/categorie.h \
     model/editeur.h \
+    model/emprunt.h \
     model/langue.h \
     model/livre.h \
     model/utilisateur.h \
@@ -39,13 +44,16 @@ HEADERS += \
     ui/livrewindow.h \
     ui/mainwindow.h \
     manager/MembreManager.h \
-    model/membre.h
+    model/membre.h \
+    ui/newempruntwindow.h \
+    util/util.h
 
 FORMS += \
     ui/auteurwindow.ui \
     ui/livredetail.ui \
     ui/livrewindow.ui \
-    ui/mainwindow.ui
+    ui/mainwindow.ui \
+    ui/newempruntwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
