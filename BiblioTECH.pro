@@ -12,6 +12,7 @@ SOURCES += \
     manager/DatabaseManager.cpp \
     main.cpp \
     model/abonnement.cpp \
+    model/abonnementmembre.cpp \
     model/auteur.cpp \
     model/categorie.cpp \
     model/editeur.cpp \
@@ -27,6 +28,7 @@ SOURCES += \
     ui/mainwindow.cpp \
     manager/MembreManager.cpp \
     ui/newempruntwindow.cpp \
+    ui/newmembrewindow.cpp \
     util/util.cpp
 
 HEADERS += \
@@ -49,6 +51,7 @@ HEADERS += \
     manager/MembreManager.h \
     model/membre.h \
     ui/newempruntwindow.h \
+    ui/newmembrewindow.h \
     util/util.h
 
 FORMS += \
@@ -57,7 +60,8 @@ FORMS += \
     ui/livredetail.ui \
     ui/livrewindow.ui \
     ui/mainwindow.ui \
-    ui/newempruntwindow.ui
+    ui/newempruntwindow.ui \
+    ui/newmembrewindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

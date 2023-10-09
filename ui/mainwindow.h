@@ -52,6 +52,8 @@ private slots:
 
     void on_abonnementButton_clicked();
 
+    void on_newMembreButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     QSqlDatabase db;

@@ -14,9 +14,11 @@ Membre::Membre(int id, const QString& nom, const QString& prenom, const QDate& n
 {
 }
 
-void Membre::addMembre(const Membre& membre) {
+int Membre::addMembre(const Membre& membre) {
     QSqlQuery query;
-    query.prepare("INSERT INTO Membre (nom, prenom, naissance, adresse, contact) VALUES (?, ?, ?, ?, ?)");
+    query.prepare("INSERT INTO Membre (nom, prenom, naissance, adresse, contact) "
+                  "VALUES (?, ?, ?, ?, ?)");
+
     query.addBindValue(membre.nom);
     query.addBindValue(membre.prenom);
     query.addBindValue(membre.naissance.toString("yyyy-MM-dd"));
@@ -24,11 +26,22 @@ void Membre::addMembre(const Membre& membre) {
     query.addBindValue(membre.contact);
 
     if (query.exec()) {
-        qDebug("Membre ajouté avec succès.");
+        QSqlQuery queryId("SELECT @@IDENTITY");
+        if (queryId.exec() && queryId.next()) {
+            int nouvelId = queryId.value(0).toInt();
+            qDebug() << "Nouvel ID du membre ajouté : " << nouvelId;
+            return nouvelId;
+        } else {
+            qDebug() << "Erreur lors de la récupération de l'ID : " << queryId.lastError().text();
+        }
     } else {
-        qDebug("Erreur lors de l'ajout de l'Membre : %s", qPrintable(query.lastError().text()));
+        qDebug() << "Erreur lors de l'ajout du membre : " << query.lastError().text();
+        qDebug() << "Requête : " << query.lastQuery();
     }
+
+    return -1;
 }
+
 
 
 Membre Membre::getById(int id) {

@@ -3,6 +3,7 @@
 #include "ui/livrewindow.h"
 #include "ui/auteurwindow.h"
 #include "ui/abonnementwindow.h"
+#include "ui/newmembrewindow.h"
 #include "model/utilisateur.h"
 #include "manager/DatabaseManager.h"
 #include <QMessageBox>
@@ -177,6 +178,15 @@ void MainWindow::on_abonnementButton_clicked()
     AbonnementWindow *w  = new AbonnementWindow(this);
     w->setWindowTitle("Abonnement");
         w->setAttribute(Qt::WA_DeleteOnClose);
+    w->show();
+}
+
+
+void MainWindow::on_newMembreButton_clicked()
+{
+    NewMembreWindow *w  = new NewMembreWindow(this);
+    w->setWindowTitle("Nouveau membre");
+    w->setAttribute(Qt::WA_DeleteOnClose);
     w->show();
 }
 

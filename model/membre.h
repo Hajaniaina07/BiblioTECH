@@ -19,7 +19,7 @@ public:
     Membre(int id, const QString& nom, const QString& prenom, const QDate& naissance, const QString& adresse, const QString& contact);
 
 
-    static void addMembre(const Membre& membre);
+    static int addMembre(const Membre& membre);
     static Membre getById(int id);
     static QList<Membre> getAllMembres();
     static void updateMembre(const Membre& membre);
