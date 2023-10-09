@@ -2,14 +2,23 @@
 #define ABONNEMENT_H
 
 #include <QString>
+
 class Abonnement {
 public:
     int id;
-    QString type;
+    QString nom;
     int duree;
     int maxEmpruntSimultane;
     int maxDureeEmpruntUnitaire;
-};
 
+    Abonnement();
+    Abonnement(const QString& nom, int duree, int maxEmpruntSimultane, int maxDureeEmpruntUnitaire);
+
+    // Fonctions CRUD
+    static void addAbonnement(const Abonnement& abonnement);
+    static QList<Abonnement> getAllAbonnements();
+    static void updateAbonnement(const Abonnement& abonnement);
+    static void deleteAbonnement(int abonnementId);
+};
 
 #endif // ABONNEMENT_H

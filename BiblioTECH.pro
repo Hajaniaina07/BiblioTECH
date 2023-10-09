@@ -11,6 +11,7 @@ CONFIG += c++17
 SOURCES += \
     manager/DatabaseManager.cpp \
     main.cpp \
+    model/abonnement.cpp \
     model/auteur.cpp \
     model/categorie.cpp \
     model/editeur.cpp \
@@ -19,6 +20,7 @@ SOURCES += \
     model/livre.cpp \
     model/membre.cpp \
     model/utilisateur.cpp \
+    ui/abonnementwindow.cpp \
     ui/auteurwindow.cpp \
     ui/livredetail.cpp \
     ui/livrewindow.cpp \
@@ -39,6 +41,7 @@ HEADERS += \
     model/langue.h \
     model/livre.h \
     model/utilisateur.h \
+    ui/abonnementwindow.h \
     ui/auteurwindow.h \
     ui/livredetail.h \
     ui/livrewindow.h \
@@ -49,6 +52,7 @@ HEADERS += \
     util/util.h
 
 FORMS += \
+    ui/abonnementwindow.ui \
     ui/auteurwindow.ui \
     ui/livredetail.ui \
     ui/livrewindow.ui \

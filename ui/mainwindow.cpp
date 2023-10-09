@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include "ui/livrewindow.h"
 #include "ui/auteurwindow.h"
+#include "ui/abonnementwindow.h"
 #include "model/utilisateur.h"
 #include "manager/DatabaseManager.h"
 #include <QMessageBox>
@@ -143,12 +144,39 @@ void  MainWindow::getListLivre()
     }
 }
 
+void MainWindow::getListMembre(){
+
+}
+
 void MainWindow::on_livreTableWidget_cellDoubleClicked(int row, int column)
 {
     Livre livre = listeLivres.at(row);
     LivreDetail *w  = new LivreDetail(1,livre,this);
     w->setWindowTitle("Détail du livre");
     w->setAttribute(Qt::WA_DeleteOnClose);
+    w->show();
+}
+
+
+void MainWindow::on_lb_accueil_2_clicked()
+{
+    ui->principal->setCurrentIndex(2);
+    getListLivre();
+}
+
+
+void MainWindow::on_pushButton_3_clicked()
+{
+    ui->principal->setCurrentIndex(3);
+    getListMembre();
+}
+
+
+void MainWindow::on_abonnementButton_clicked()
+{
+    AbonnementWindow *w  = new AbonnementWindow(this);
+    w->setWindowTitle("Abonnement");
+        w->setAttribute(Qt::WA_DeleteOnClose);
     w->show();
 }
 

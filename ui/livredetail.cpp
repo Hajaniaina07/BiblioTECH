@@ -24,6 +24,8 @@ LivreDetail::LivreDetail(const int& page,Livre& livre, QWidget *parent) :
     }
     ui->pageSpinBox->setMaximum(9999);
     ui->quantiteSpinBox->setMaximum(9999);
+    ui->pageSpinBox_2->setMaximum(9999);
+    ui->quantiteSpinBox_2->setMaximum(9999);
     getList();
     getLivre(livre);
 }

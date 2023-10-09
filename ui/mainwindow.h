@@ -21,6 +21,7 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
     void  getListLivre();
+    void getListMembre();
 
 private slots:
     void on_livre_btn_clicked();
@@ -44,6 +45,12 @@ private slots:
     void on_lb_ajouter_clicked();
 
     void on_livreTableWidget_cellDoubleClicked(int row, int column);
+
+    void on_lb_accueil_2_clicked();
+
+    void on_pushButton_3_clicked();
+
+    void on_abonnementButton_clicked();
 
 private:
     Ui::MainWindow *ui;
