@@ -16,6 +16,7 @@ public:
     Langue(int id, const QString& nom);
     
     static void addLangue(const Langue& Langue);
+    static Langue getById(int id);
     static QList<Langue> getAllLangues();
     static void updateLangue(const Langue& Langue);
     static void deleteLangue(int LangueId);

@@ -26,6 +26,19 @@ void Langue::addLangue(const Langue& Langue) {
     }
 }
 
+Langue Langue::getById(int id) {
+    Langue langue;
+    QSqlQuery query;
+    query.prepare("SELECT * FROM Langue WHERE id = ?");
+    query.addBindValue(id);
+
+    if (query.exec() && query.next()) {
+        langue.id = query.value("id").toInt();
+        langue.nom = query.value("nom").toString();
+    }
+    return langue;
+}
+
 QList<Langue> Langue::getAllLangues() {
     QList<Langue> Langues;
     QSqlQuery query("SELECT * FROM Langue");

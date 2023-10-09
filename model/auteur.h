@@ -21,10 +21,12 @@ public:
 
     static void addAuteur(const Auteur& auteur);
     static QList<Auteur> getAllAuteurs();
+    static Auteur getById(int id);
     static void updateAuteur(const Auteur& auteur);
     static void deleteAuteur(int auteurId);
     bool operator==(const Auteur& other) const;
     bool operator!=(const Auteur& other) const;
+
 
 };
 

@@ -32,7 +32,7 @@
    <string>BiblioTECH</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="../qrc/logo.qrc">
+   <iconset resource="../qrc/img.qrc">
     <normaloff>:/res/img/logo1.png</normaloff>:/res/img/logo1.png</iconset>
   </property>
   <property name="styleSheet">
@@ -355,7 +355,7 @@ Emprunts</string>
          <string>Langue</string>
         </property>
        </widget>
-       <widget class="QTableWidget" name="tableWidget">
+       <widget class="QTableWidget" name="livreTableWidget">
         <property name="geometry">
          <rect>
           <x>0</x>
@@ -363,6 +363,15 @@ Emprunts</string>
           <width>931</width>
           <height>461</height>
          </rect>
+        </property>
+        <property name="editTriggers">
+         <set>QAbstractItemView::NoEditTriggers</set>
+        </property>
+        <property name="selectionMode">
+         <enum>QAbstractItemView::SingleSelection</enum>
+        </property>
+        <property name="selectionBehavior">
+         <enum>QAbstractItemView::SelectRows</enum>
         </property>
         <column>
          <property name="text">
@@ -392,6 +401,11 @@ Emprunts</string>
         <column>
          <property name="text">
           <string>Note /5</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Publication</string>
          </property>
         </column>
        </widget>
@@ -441,7 +455,7 @@ Emprunts</string>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources>
-  <include location="../qrc/logo.qrc"/>
+  <include location="../qrc/img.qrc"/>
  </resources>
  <connections/>
 </ui>

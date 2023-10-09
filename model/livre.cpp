@@ -59,7 +59,7 @@ QList<Livre> Livre::getAllLivres() {
         livre.publication = query.value("publication").toDateTime().date();
         livre.resume = query.value("resume").toString();
 
-        livres.append(livre);
+        livres.append(setDetail(livre));
     }
 
     return livres;
@@ -118,6 +118,13 @@ Livre Livre::findLivreById(int livreId) {
         livre.publication = query.value("publication").toDateTime().date();
         livre.resume = query.value("resume").toString();
     }
+    return setDetail(livre);
+}
 
+Livre Livre::setDetail(Livre livre) {
+    livre.auteur = Auteur::getById(livre.auteur.id);
+    livre.categorie = Categorie::getById(livre.categorie.id);
+    livre.editeur = Editeur::getById(livre.editeur.id);
+    livre.langue = Langue::getById(livre.langue.id);
     return livre;
 }

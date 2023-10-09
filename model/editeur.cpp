@@ -26,6 +26,19 @@ void Editeur::addEditeur(const Editeur& Editeur) {
     }
 }
 
+Editeur Editeur::getById(int id) {
+    Editeur editeur;
+    QSqlQuery query;
+    query.prepare("SELECT * FROM Editeur WHERE id = ?");
+    query.addBindValue(id);
+
+    if (query.exec() && query.next()) {
+        editeur.id = query.value("id").toInt();
+        editeur.nom = query.value("nom").toString();
+    }
+    return editeur;
+}
+
 QList<Editeur> Editeur::getAllEditeurs() {
     QList<Editeur> Editeurs;
     QSqlQuery query("SELECT * FROM Editeur");

@@ -19,14 +19,15 @@ class LivreDetail : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit LivreDetail(const int& page,const int& livreID,QWidget *parent = nullptr);
+    explicit LivreDetail(const int& page,Livre& livre,QWidget *parent = nullptr);
     ~LivreDetail();
 
     int getSelectedItem(QComboBox* comboBox);
+    void setDetailLivre();
 
 private slots:
     void getList();
-    void getLivre(int livreId);
+    void getLivre(Livre livre);
 
     void on_addLivreButton_clicked();
 

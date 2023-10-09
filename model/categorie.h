@@ -16,6 +16,7 @@ public:
     Categorie(int id, const QString& nom);
     
     static void addCategorie(const Categorie& Categorie);
+    static Categorie getById(int id);
     static QList<Categorie> getAllCategories();
     static void updateCategorie(const Categorie& Categorie);
     static void deleteCategorie(int CategorieId);

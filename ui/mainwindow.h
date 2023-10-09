@@ -7,6 +7,7 @@
 #include <QSqlError>
 #include <QDebug>
 #include "ui/livredetail.h"
+#include "model/livre.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -19,6 +20,7 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+    void  getListLivre();
 
 private slots:
     void on_livre_btn_clicked();
@@ -41,9 +43,13 @@ private slots:
 
     void on_lb_ajouter_clicked();
 
+    void on_livreTableWidget_cellDoubleClicked(int row, int column);
+
 private:
     Ui::MainWindow *ui;
     QSqlDatabase db;
     QSqlTableModel *model;
+    QList<Livre> listeLivres;
+
 };
 #endif // MAINWINDOW_H

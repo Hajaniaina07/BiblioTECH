@@ -3,15 +3,26 @@
 #include "model/livre.h"
 #include "manager/DatabaseManager.h"
 
-LivreDetail::LivreDetail(const int& page,const int& livreID, QWidget *parent) :
-    QMainWindow(parent), ui(new Ui::LivreDetail), page(page)
+LivreDetail::LivreDetail(const int& page,Livre& livre, QWidget *parent) :
+    QMainWindow(parent), ui(new Ui::LivreDetail), page(page),livre(livre)
 {
     setFixedSize(640,480);
     ui->setupUi(this);
+    ui->stackedWidget->setCurrentIndex(page);
+
+    switch (page) {
+    case 0:
+        break;
+    case 1:
+        setDetailLivre();
+        break;
+    default:
+        break;
+    }
     ui->pageSpinBox->setMaximum(9999);
     ui->quantiteSpinBox->setMaximum(9999);
     getList();
-    getLivre(livreID);
+    getLivre(livre);
 }
 
 LivreDetail::~LivreDetail()
@@ -47,12 +58,36 @@ void LivreDetail::getList()
     }
 }
 
+void LivreDetail::setDetailLivre(){
+    ui->titleLAbel->setText(livre.titre);
+    ui->pageLabel->setText(QString("%1 %2").arg(livre.page).arg("Pages"));
+    QString auteur = QString("%1 %2").arg(livre.auteur.prenom).arg(livre.auteur.nom);
+    if(!livre.auteur.pseudo.isNull() && !livre.auteur.pseudo.isEmpty())
+        auteur += QString(" (%1)").arg(livre.auteur.pseudo);
+    ui->auteurLabel->setText(auteur);
+    ui->editeurLabel->setText(livre.editeur.nom);
+    ui->genreLabel->setText(livre.categorie.nom);
+    ui->quantiteLabel->setText(QString("%1/%2").arg(livre.quantite).arg(livre.quantite));
+    ui->langueLabel->setText(livre.langue.nom);
+    ui->synopsisEdit->setPlainText(livre.resume);
+
+    int day = livre.publication.day();
+    QString month = livre.publication.toString("MMMM");
+    int year = livre.publication.year();
+
+    QString formattedDate = QString("%1 %2 %3").arg(day).arg(month).arg(year);
+
+    ui->publicationLabel->setText(formattedDate);
+}
 
 
-void LivreDetail::getLivre(int livreId)
+
+void LivreDetail::getLivre(Livre livre)
 {
-    if(livreId != 0){
+    if(livre.titre.isEmpty() || livre.titre.isEmpty())
+        if(livre.id != 0){
         if(DatabaseManager::openConnection()){
+                livre = Livre::findLivreById(livre.id);
             DatabaseManager::closeConnection();
         }
     }

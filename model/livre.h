@@ -27,12 +27,12 @@ public:
           const QString& titre, int page, const QDate& publication, const QString& resume, int quantite);
 
 
-
     static void addLivre(const Livre& livre);
     static QList<Livre> getAllLivres();
     static void updateLivre(const Livre& livre);
     static void deleteLivre(int livreId);
     static Livre findLivreById(int livreId);
+    static Livre setDetail(Livre livre);
 };
 
 

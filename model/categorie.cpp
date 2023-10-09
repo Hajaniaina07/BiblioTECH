@@ -26,6 +26,19 @@ void Categorie::addCategorie(const Categorie& Categorie) {
     }
 }
 
+Categorie Categorie::getById(int id) {
+    Categorie categorie;
+    QSqlQuery query;
+    query.prepare("SELECT * FROM Categorie WHERE id = ?");
+    query.addBindValue(id);
+
+    if (query.exec() && query.next()) {
+        categorie.id = query.value("id").toInt();
+        categorie.nom = query.value("nom").toString();
+    }
+    return categorie;
+}
+
 QList<Categorie> Categorie::getAllCategories() {
     QList<Categorie> Categories;
     QSqlQuery query("SELECT * FROM Categorie");

@@ -3,6 +3,7 @@
 #include "ui/livrewindow.h"
 #include "ui/auteurwindow.h"
 #include "model/utilisateur.h"
+#include "manager/DatabaseManager.h"
 #include <QMessageBox>
 
 MainWindow::MainWindow(QWidget *parent)
@@ -11,6 +12,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     setFixedSize(950,550);
     ui->setupUi(this);
+    getListLivre();
 }
 
 MainWindow::~MainWindow()
@@ -84,9 +86,9 @@ void MainWindow::on_pushButton_clicked()
     QString mdp = ui->mdpEdit->text();
     Utilisateur utilisateur = Utilisateur(login,mdp);
     if(utilisateur.isConnected()){
-        ui->principal->setCurrentIndex(1);
+        ui->principal->setCurrentIndex(2);
     }else{
-        QMessageBox::critical(this, "Erreur de connection", "Login ou mot de passe incorecte");
+        QMessageBox::critical(this, "Erreur de connection", "Login ou mot de passe incorrect");
     }
 }
 
@@ -94,8 +96,59 @@ void MainWindow::on_pushButton_clicked()
 
 void MainWindow::on_lb_ajouter_clicked()
 {
-    LivreDetail *w  = new LivreDetail(0,0,this);
+    Livre livre = Livre();
+    LivreDetail *w  = new LivreDetail(0,livre,this);
     w->setWindowTitle("Nouveau livre");
+    w->setAttribute(Qt::WA_DeleteOnClose);
+    w->show();
+}
+
+void  MainWindow::getListLivre()
+{
+    ui->livreTableWidget->setRowCount(0);
+
+    ui->livreTableWidget->verticalHeader()->setVisible(false);
+    ui->livreTableWidget->setColumnWidth(0, 250);
+    ui->livreTableWidget->setColumnWidth(2, 150);
+
+    if (DatabaseManager::openConnection()) {
+        listeLivres = Livre::getAllLivres();
+        int row = 0;
+        for (Livre livre : listeLivres) {
+            ui->livreTableWidget->insertRow(row);
+            QTableWidgetItem *titleItem = new QTableWidgetItem(livre.titre);
+            QFont font = titleItem->font();
+            font.setBold(true);
+            titleItem->setFont(font);
+
+            QTableWidgetItem *genreItem = new QTableWidgetItem(livre.categorie.nom);
+            genreItem->setTextAlignment(Qt::AlignCenter);
+
+            QTableWidgetItem *pageItem = new QTableWidgetItem(QString::number(livre.page));
+            pageItem->setTextAlignment(Qt::AlignCenter);
+
+            QTableWidgetItem *publicationItem = new QTableWidgetItem(livre.publication.toString("dd/MM/yyyy"));
+            publicationItem->setTextAlignment(Qt::AlignCenter);
+
+            ui->livreTableWidget->setItem(row, 0, titleItem);
+            ui->livreTableWidget->setItem(row, 1, genreItem);
+            ui->livreTableWidget->setItem(row, 2, new QTableWidgetItem(livre.auteur.prenom + " " +livre.auteur.nom));
+            ui->livreTableWidget->setItem(row, 3, pageItem);
+            ui->livreTableWidget->setItem(row, 6, publicationItem);
+
+            row++;
+        }
+        DatabaseManager::closeConnection();
+    }
+}
+
+void MainWindow::on_livreTableWidget_cellDoubleClicked(int row, int column)
+{
+    Livre livre = listeLivres.at(row);
+    qDebug() << livre.auteur.id;
+    qDebug() << livre.auteur.nom;
+    LivreDetail *w  = new LivreDetail(1,livre,this);
+    w->setWindowTitle("Détail du livre");
     w->setAttribute(Qt::WA_DeleteOnClose);
     w->show();
 }

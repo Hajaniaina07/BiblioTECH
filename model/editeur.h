@@ -16,6 +16,7 @@ public:
     Editeur(int id, const QString& nom);
     
     static void addEditeur(const Editeur& Editeur);
+    static Editeur getById(int id);
     static QList<Editeur> getAllEditeurs();
     static void updateEditeur(const Editeur& Editeur);
     static void deleteEditeur(int EditeurId);

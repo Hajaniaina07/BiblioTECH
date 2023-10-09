@@ -29,6 +29,23 @@ void Auteur::addAuteur(const Auteur& auteur) {
     }
 }
 
+
+Auteur Auteur::getById(int id) {
+    Auteur auteur;
+    QSqlQuery query;
+    query.prepare("SELECT * FROM Auteur WHERE id = ?");
+    query.addBindValue(id);
+
+    if (query.exec() && query.next()) {
+        auteur.id = query.value("id").toInt();
+        auteur.nom = query.value("nom").toString();
+        auteur.prenom = query.value("prenom").toString();
+        auteur.pseudo = query.value("pseudo").toString();
+        auteur.naissance = query.value("naissance").toDateTime().date();
+    }
+    return auteur;
+}
+
 QList<Auteur> Auteur::getAllAuteurs() {
     QList<Auteur> auteurs;
     QSqlQuery query("SELECT * FROM Auteur");
