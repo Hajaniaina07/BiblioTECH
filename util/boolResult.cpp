@@ -7,7 +7,7 @@ BoolResult::BoolResult()
 
 
 BoolResult::BoolResult(bool res, const QString& message):
-    result(res),message(message)
+    validate(res),message(message)
 {
 
 }

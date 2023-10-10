@@ -4,7 +4,7 @@
 
 class BoolResult {
 public:
-    bool result;
+    bool validate = false;
     QString message;
 
     BoolResult();

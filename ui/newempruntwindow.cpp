@@ -109,16 +109,25 @@ void NewEmpruntWindow::on_validateEmpruntButton_clicked()
 {
     int indexSelectedLivre = Util::getSelectedItem(ui->livresComboBox);
     int indexSelectedMembre = Util::getSelectedItem(ui->membreComboBox);
-    livre = listeLivres[indexSelectedLivre];
-    membre = listeMembres[indexSelectedMembre];
-    QDate dateEmprunt = ui->dateUmpruntEdit->date();
-    Emprunt emprunt = Emprunt(livre,membre,dateEmprunt);
-    BoolResult validation = Emprunt::validateEmprunt(emprunt);
-    if(DatabaseManager::openConnection()){
-        Emprunt::addEmprunt(emprunt);
-        DatabaseManager::closeConnection();
-        QMessageBox::information(this, "Succès", "Emprunt enregistré !");
-        this->close();
+
+    if(indexSelectedMembre > -1 && indexSelectedLivre > -1){
+        livre = listeLivres[indexSelectedLivre];
+        membre = listeMembres[indexSelectedMembre];
+        QDate dateEmprunt = ui->dateUmpruntEdit->date();
+        Emprunt emprunt = Emprunt(livre,membre,dateEmprunt);
+        if(DatabaseManager::openConnection()){
+            BoolResult validation = Emprunt::validateEmprunt(emprunt);
+            if(validation.validate){
+                Emprunt::addEmprunt(emprunt);
+                QMessageBox::information(this, "Succès", "Emprunt enregistré !");
+                DatabaseManager::closeConnection();
+                this->close();
+            }else{
+                QMessageBox::critical(this, "Emprunt non autorisé", validation.message);
+                DatabaseManager::closeConnection();
+            }
+        }
     }
+
 }
 

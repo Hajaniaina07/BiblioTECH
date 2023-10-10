@@ -21,9 +21,10 @@ public:
 
     static void addEmprunt(const Emprunt& emprunt);
     static QList<Emprunt> getAllEmprunts();
+    static QList<Emprunt> getTopLatest(int idMembre);
     static void updateEmprunt(const Emprunt& emprunt);
     static void deleteEmprunt(int empruntId);
-    static BoolResult validateEmprunt(const Emprunt& emprunt);
+    static BoolResult validateEmprunt(Emprunt  &emprunt);
 };
 
 #endif // EMPRUNT_H

@@ -1,5 +1,7 @@
 #include "model/emprunt.h"
+#include "model/abonnementmembre.h"
 #include <QSqlQuery>
+#include <QSqlRecord>
 #include <QSqlError>
 
 
@@ -51,6 +53,33 @@ QList<Emprunt> Emprunt::getAllEmprunts() {
     return listeEmprunts;
 }
 
+QList<Emprunt> Emprunt::getTopLatest(int idMembre) {
+    QList<Emprunt> listeEmprunts;
+
+    QSqlQuery query;
+    query.prepare("SELECT * FROM Emprunt WHERE membre_id = ? ORDER BY date_emprunt DESC");
+    query.addBindValue(idMembre);
+
+    if (query.exec()) {
+        while (query.next()) {
+            Emprunt emprunt;
+            emprunt.id = query.value("id").toInt();
+            emprunt.livre.id = query.value("livre_id").toInt();
+            emprunt.membre.id = query.value("membre_id").toInt();
+            emprunt.dateEmprunt = query.value("date_emprunt").toDate();
+            emprunt.dateMax = query.value("date_max").toDate();
+            emprunt.dateRendue = query.value("date_rendue").toDate();
+            emprunt.livre = Livre::findLivreById(emprunt.livre.id);
+            listeEmprunts.append(emprunt);
+        }
+    } else {
+        qDebug() << "Erreur SQL:" << query.lastError().text();
+    }
+
+    return listeEmprunts;
+}
+
+
 void Emprunt::updateEmprunt(const Emprunt& emprunt) {
     QSqlQuery query;
     query.prepare("UPDATE Emprunt SET livre_id = ?, membre_id = ?, date_emprunt = ?, date_max = ?, date_rendue = ? "
@@ -78,7 +107,38 @@ void Emprunt::deleteEmprunt(int empruntId) {
 }
 
 
-BoolResult Emprunt::validateEmprunt(const Emprunt& emprunt){
+BoolResult Emprunt::validateEmprunt(Emprunt  &emprunt){
     BoolResult res;
+    Membre membre = Membre::getById(emprunt.membre.id);
+    AbonnementMembre am = AbonnementMembre::getByMembreID(membre.id);
+    if(am.id != 0){
+        QDate now = QDate::currentDate();
+        if(am.fin > now){
+            Abonnement abonnement = am.abonnement;
+            QList<Emprunt> listEmprunts = getTopLatest(membre.id);
+            int nonRendue = 0;
+            for (Emprunt &em: listEmprunts) {
+                if(!em.dateRendue.isValid()){
+                    nonRendue ++;
+                    if(em.dateMax < now){
+                        res.message = QString("Veuillez rendre le livre intitulé %1 de %2 %3 afin de pouvoir emprunter de nouveau.")
+                        .arg(em.livre.titre).arg(em.livre.auteur.prenom).arg(em.livre.auteur.nom);
+                        return res;
+                    }
+                }
+            }
+            if(nonRendue >= abonnement.maxEmpruntSimultane){
+                res.message = QString("%1 %2 a atteint le nombre maximum \n d'emprunts simultanés de %3 livres")
+                .arg(membre.nom).arg(membre.prenom).arg(abonnement.maxEmpruntSimultane);
+            }else {
+                emprunt.dateMax = emprunt.dateEmprunt.addDays(abonnement.maxDureeEmpruntUnitaire);
+                res.validate = true;
+            }
+        }else {
+            res.message = "Abonnement expiré";
+        }
+    }else {
+        res.message = QString("%1 %2 n'est souscrit à aucun abonnement").arg(membre.nom).arg(membre.prenom);
+    }
     return res;
 }
