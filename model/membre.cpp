@@ -14,7 +14,7 @@ Membre::Membre(int id, const QString& nom, const QString& prenom, const QDate& n
 {
 }
 
-int Membre::addMembre(const Membre& membre) {
+void Membre::addMembre(const Membre& membre) {
     QSqlQuery query;
     query.prepare("INSERT INTO Membre (nom, prenom, naissance, adresse, contact) "
                   "VALUES (?, ?, ?, ?, ?)");
@@ -25,21 +25,9 @@ int Membre::addMembre(const Membre& membre) {
     query.addBindValue(membre.adresse);
     query.addBindValue(membre.contact);
 
-    if (query.exec()) {
-        QSqlQuery queryId("SELECT @@IDENTITY");
-        if (queryId.exec() && queryId.next()) {
-            int nouvelId = queryId.value(0).toInt();
-            qDebug() << "Nouvel ID du membre ajouté : " << nouvelId;
-            return nouvelId;
-        } else {
-            qDebug() << "Erreur lors de la récupération de l'ID : " << queryId.lastError().text();
-        }
-    } else {
-        qDebug() << "Erreur lors de l'ajout du membre : " << query.lastError().text();
-        qDebug() << "Requête : " << query.lastQuery();
+    if (!query.exec()) {
+        qDebug() << "Erreur lors de l'ajout du membre:" << query.lastError().text();
     }
-
-    return -1;
 }
 
 
@@ -107,3 +95,20 @@ void Membre::deleteMembre(int membreId) {
         qDebug("Erreur lors de la suppression de l'Membre : %s", qPrintable(query.lastError().text()));
     }
 }
+
+Membre Membre::getLastMembre() {
+    Membre membre;
+
+    QSqlQuery query("SELECT * FROM Membre ORDER BY id DESC LIMIT 1");
+    if (query.exec() && query.next()) {
+        membre.id = query.value("id").toInt();
+        membre.nom = query.value("nom").toString();
+        membre.prenom = query.value("prenom").toString();
+        membre.naissance = query.value("naissance").toDate();
+        membre.adresse = query.value("adresse").toString();
+        membre.contact = query.value("contact").toString();
+    }
+
+    return membre;
+}
+

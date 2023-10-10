@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>281</width>
-    <height>404</height>
+    <height>350</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -165,40 +165,11 @@
      </rect>
     </property>
    </widget>
-   <widget class="QLabel" name="label_6">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>270</y>
-      <width>101</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Segoe UI</family>
-      <pointsize>11</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>Abonnement :</string>
-    </property>
-   </widget>
-   <widget class="QComboBox" name="abonnementMembrecomboBox">
-    <property name="geometry">
-     <rect>
-      <x>111</x>
-      <y>273</y>
-      <width>151</width>
-      <height>31</height>
-     </rect>
-    </property>
-   </widget>
    <widget class="QPushButton" name="pushButtonMembre">
     <property name="geometry">
      <rect>
       <x>70</x>
-      <y>320</y>
+      <y>270</y>
       <width>131</width>
       <height>31</height>
      </rect>
@@ -231,8 +202,6 @@
    <zorder>label_4</zorder>
    <zorder>label_5</zorder>
    <zorder>naissanceMembre</zorder>
-   <zorder>label_6</zorder>
-   <zorder>abonnementMembrecomboBox</zorder>
    <zorder>pushButtonMembre</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">

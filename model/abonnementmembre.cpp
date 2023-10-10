@@ -18,18 +18,10 @@ void AbonnementMembre::addAbonnementMembre(const AbonnementMembre& abonnementMem
     query.addBindValue(abonnementMembre.debut.toString("yyyy-MM-dd"));
     query.addBindValue(abonnementMembre.fin.toString("yyyy-MM-dd"));
 
-    if (query.exec()) {
-        // Récupérer l'ID après l'insertion
-        QSqlQuery queryId("SELECT @@IDENTITY");
-        if (queryId.exec() && queryId.next()) {
-            int nouvelId = queryId.value(0).toInt();
-            qDebug() << "Nouvel ID de l'abonnement du membre ajouté : " << nouvelId;
-        } else {
-            qDebug() << "Erreur lors de la récupération de l'ID : " << queryId.lastError().text();
-        }
-    } else {
+    if (!query.exec()) {
         qDebug() << "Erreur lors de l'ajout de l'abonnement du membre : " << query.lastError().text();
     }
+
 }
 
 AbonnementMembre AbonnementMembre::getById(int id) {
