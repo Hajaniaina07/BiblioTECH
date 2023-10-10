@@ -9,7 +9,6 @@ AbonnementMembre::AbonnementMembre(int id, const Membre& membre, const Abonnemen
     : id(id), membre(membre), abonnement(abonnement), debut(debut), fin(fin) {}
 
 void AbonnementMembre::addAbonnementMembre(const AbonnementMembre& abonnementMembre) {
-    qDebug() << "M : " << abonnementMembre.membre.id << "A : " << abonnementMembre.abonnement.id ;
     QSqlQuery query;
     query.prepare("INSERT INTO ABONNEMENT_MEMBRE (Membre_ID, Abonnement_ID, Debut, Fin) "
                   "VALUES (?, ?, ?, ?)");

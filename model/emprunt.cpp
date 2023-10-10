@@ -106,6 +106,20 @@ void Emprunt::deleteEmprunt(int empruntId) {
     }
 }
 
+int Emprunt::countNonRendue(int livre_id) {
+    QSqlQuery query;
+    query.prepare("SELECT COUNT(*) FROM emprunt WHERE livre_id = ? "
+                  "AND (date_rendue IS NULL OR date_rendue = '' OR date_rendue = 'Invalid')");
+    query.addBindValue(livre_id);
+
+    if (query.exec() && query.next()) {
+        return query.value(0).toInt();
+    } else {
+        qDebug() << "Erreur SQL:" << query.lastError().text();
+        return -1; // Valeur d'erreur, ajustez selon votre besoin
+    }
+}
+
 
 BoolResult Emprunt::validateEmprunt(Emprunt  &emprunt){
     BoolResult res;
@@ -121,7 +135,7 @@ BoolResult Emprunt::validateEmprunt(Emprunt  &emprunt){
                 if(!em.dateRendue.isValid()){
                     nonRendue ++;
                     if(em.dateMax < now){
-                        res.message = QString("Veuillez rendre le livre intitulé %1 de %2 %3 afin de pouvoir emprunter de nouveau.")
+                        res.message = QString("Veuillez rendre le livre intitulé \"%1\" de %2 %3 afin de pouvoir emprunter de nouveau.")
                         .arg(em.livre.titre).arg(em.livre.auteur.prenom).arg(em.livre.auteur.nom);
                         return res;
                     }
@@ -140,5 +154,14 @@ BoolResult Emprunt::validateEmprunt(Emprunt  &emprunt){
     }else {
         res.message = QString("%1 %2 n'est souscrit à aucun abonnement").arg(membre.nom).arg(membre.prenom);
     }
+    int totalNonRendue = countNonRendue(emprunt.livre.id);
+    int totalLivre = emprunt.livre.quantite;
+    if(totalNonRendue >= totalLivre){
+        res.message = QString("Le livre intitulé \"%1\" de %2 %3 est indisponible")
+        .arg(emprunt.livre.titre).arg(emprunt.livre.auteur.prenom).arg(emprunt.livre.auteur.nom);
+        res.validate = false;
+    }
+
+    qDebug() << "Livre:" << totalNonRendue << totalLivre;
     return res;
 }
