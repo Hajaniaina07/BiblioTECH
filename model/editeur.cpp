@@ -20,7 +20,7 @@ void Editeur::addEditeur(const Editeur& Editeur) {
     query.addBindValue(Editeur.nom);
 
     if (query.exec()) {
-        qDebug("Editeur ajouté avec succès.");
+
     } else {
         qDebug("Erreur lors de l'ajout de l'Editeur : %s", qPrintable(query.lastError().text()));
     }
@@ -56,8 +56,9 @@ QList<Editeur> Editeur::getAllEditeurs() {
 
 void Editeur::updateEditeur(const Editeur& Editeur) {
     QSqlQuery query;
-    query.prepare("UPDATE Editeur SET nom=?");
+    query.prepare("UPDATE Editeur SET nom=? where id=?");
     query.addBindValue(Editeur.nom);
+    query.addBindValue(Editeur.id);
     if (query.exec()) {
         qDebug("Editeur mis à jour avec succès.");
     } else {

@@ -56,10 +56,11 @@ QList<Categorie> Categorie::getAllCategories() {
 
 void Categorie::updateCategorie(const Categorie& Categorie) {
     QSqlQuery query;
-    query.prepare("UPDATE Categorie SET nom=?");
+    query.prepare("UPDATE Categorie SET nom=? where id=?");
     query.addBindValue(Categorie.nom);
+    query.addBindValue(Categorie.id);
     if (query.exec()) {
-        qDebug("Categorie mis à jour avec succès.");
+
     } else {
         qDebug("Erreur lors de la mise à jour de l'Categorie : %s", qPrintable(query.lastError().text()));
     }
@@ -71,7 +72,7 @@ void Categorie::deleteCategorie(int CategorieId) {
     query.addBindValue(CategorieId);
 
     if (query.exec()) {
-        qDebug("Categorie supprimé avec succès.");
+
     } else {
         qDebug("Erreur lors de la suppression de l'Categorie : %s", qPrintable(query.lastError().text()));
     }

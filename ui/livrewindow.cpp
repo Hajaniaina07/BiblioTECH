@@ -99,13 +99,21 @@ void LivreWindow::addNew(QString nouveau){
 }
 
 void LivreWindow::updateData(){
+    QString nouveau = ui->tableWidget->item(selectedRow,0)->text();
     if (DatabaseManager::openConnection()) {
+        qDebug() << baseModel.id << baseModel.nom << nouveau;
         if (type == "categorie") {
-            Categorie::updateCategorie(Categorie(baseModel.id,baseModel.nom));
+            Categorie cat = listeCategories.at(selectedRow);
+            cat.nom = nouveau;
+            Categorie::updateCategorie(cat);
         } else if (type == "editeur") {
-            Editeur::updateEditeur(Editeur(baseModel.id,baseModel.nom));
+            Editeur editeur = listeEditeurs.at(selectedRow);
+            editeur.nom = nouveau;
+            Editeur::updateEditeur(editeur);
         } else if (type == "langue") {
-            Langue::updateLangue(Langue(baseModel.id,baseModel.nom));
+            Langue langue = listeLangues.at(selectedRow);
+            langue.nom = nouveau;
+            Langue::updateLangue(langue);
         }
         DatabaseManager::closeConnection();
         getList();
@@ -128,24 +136,19 @@ void LivreWindow::deleteData(){
 
 void LivreWindow::on_editButton_clicked()
 {
-    int row;
-    for(int i =0 ; i < baseModels.size();i++){
-        if(baseModels[i].id == baseModel.id){
-            row = i;
-            break;
-        }
-    }
-    QString nom = ui->tableWidget->item(row, 0)->data(Qt::DisplayRole).toString();
-    if(baseModel.nom != nom){
-        bool exist = nomExist(nom,baseModels);
-        if(!exist){
-            QMessageBox::StandardButton reply;
-            reply = QMessageBox::question(this, "Confirmation", "Voulez-vous vraiment modifier " + baseModel.nom +"? ", QMessageBox::Yes|QMessageBox::No);
-            if (reply == QMessageBox::Yes) {
-                updateData();
+    if(selectedRow >= 0){
+        QString nom = ui->tableWidget->item(selectedRow, 0)->data(Qt::DisplayRole).toString();
+        if(baseModel.nom != nom){
+            bool exist = nomExist(nom,baseModels);
+            if(!exist){
+                QMessageBox::StandardButton reply;
+                reply = QMessageBox::question(this, "Confirmation", "Voulez-vous vraiment modifier " + baseModel.nom +"? ", QMessageBox::Yes|QMessageBox::No);
+                if (reply == QMessageBox::Yes) {
+                    updateData();
+                }
+            }else{
+                QMessageBox::information(nullptr, "Information", "\""+nom+"\" est déjà enregistré");
             }
-        }else{
-            QMessageBox::information(nullptr, "Information", "\""+nom+"\" est déjà enregistré");
         }
     }
 }
@@ -168,6 +171,7 @@ void LivreWindow::on_deleteButton_clicked()
 void LivreWindow::on_tableWidget_cellClicked(int row)
 {
     baseModel = baseModels.at(row);
+    selectedRow = row;
 }
 
 bool  LivreWindow::nomExist(QString nom, QList<BaseModel> baseModels){

@@ -20,7 +20,7 @@ void Langue::addLangue(const Langue& Langue) {
     query.addBindValue(Langue.nom);
 
     if (query.exec()) {
-        qDebug("Langue ajouté avec succès.");
+
     } else {
         qDebug("Erreur lors de l'ajout de l'Langue : %s", qPrintable(query.lastError().text()));
     }
@@ -54,10 +54,11 @@ QList<Langue> Langue::getAllLangues() {
     return Langues;
 }
 
-void Langue::updateLangue(const Langue& Langue) {
+void Langue::updateLangue(const Langue& langue) {
     QSqlQuery query;
-    query.prepare("UPDATE Langue SET nom=?");
-    query.addBindValue(Langue.nom);
+    query.prepare("UPDATE Langue SET nom=? where id =?");
+    query.addBindValue(langue.nom);
+    query.addBindValue(langue.id);
     if (query.exec()) {
         qDebug("Langue mis à jour avec succès.");
     } else {

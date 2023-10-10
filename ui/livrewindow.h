@@ -47,6 +47,7 @@ private:
     QList<Langue> listeLangues;
     QList<BaseModel> baseModels;
     BaseModel baseModel;
+    int selectedRow = -1;
 };
 
 #endif // LIVREWINDOW_H
