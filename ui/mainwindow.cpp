@@ -179,11 +179,11 @@ void MainWindow::getListMembre(){
                 ui->membreTableWidget->setItem(row, 6, new QTableWidgetItem("-"));
             }
 
-            ui->membreTableWidget->item(row,2)->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
-            ui->membreTableWidget->item(row,3)->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
+            ui->membreTableWidget->item(row,2)->setTextAlignment(Qt::AlignCenter | Qt::AlignVCenter);
+            ui->membreTableWidget->item(row,3)->setTextAlignment(Qt::AlignCenter | Qt::AlignVCenter);
             ui->membreTableWidget->item(row,4)->setTextAlignment(Qt::AlignCenter | Qt::AlignVCenter);
-            ui->membreTableWidget->item(row,5)->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
-            ui->membreTableWidget->item(row,6)->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
+            ui->membreTableWidget->item(row,5)->setTextAlignment(Qt::AlignCenter | Qt::AlignVCenter);
+            ui->membreTableWidget->item(row,6)->setTextAlignment(Qt::AlignCenter | Qt::AlignVCenter);
 
             row++;
         }
