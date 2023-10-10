@@ -16,6 +16,7 @@ public:
 
     // Fonctions CRUD
     static void addAbonnement(const Abonnement& abonnement);
+    static Abonnement getById(int abonnementID);
     static QList<Abonnement> getAllAbonnements();
     static void updateAbonnement(const Abonnement& abonnement);
     static void deleteAbonnement(int abonnementId);

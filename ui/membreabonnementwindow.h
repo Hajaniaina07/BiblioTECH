@@ -29,6 +29,8 @@ private slots:
 
     void on_cancelEditButton_clicked();
 
+    void on_amTableWidget_cellDoubleClicked(int row, int column);
+
 private:
     Ui::MembreAbonnementWindow *ui;
     AbonnementMembre am;

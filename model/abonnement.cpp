@@ -24,6 +24,21 @@ void Abonnement::addAbonnement(const Abonnement& abonnement) {
     }
 }
 
+Abonnement Abonnement::getById(int id) {
+    Abonnement abonnement;
+    QSqlQuery query;
+    query.prepare("SELECT * FROM Abonnement WHERE id = ?");
+    query.addBindValue(id);
+    if (query.exec() && query.next()) {
+        abonnement.id = query.value("id").toInt();
+        abonnement.nom = query.value("nom").toString();
+        abonnement.duree = query.value("duree").toInt();
+        abonnement.maxEmpruntSimultane = query.value("max_emprunt_simultanee").toInt();
+        abonnement.maxDureeEmpruntUnitaire = query.value("max_duree_emprunt_unitaire").toInt();
+    }
+    return abonnement;
+}
+
 QList<Abonnement> Abonnement::getAllAbonnements() {
     QList<Abonnement> listeAbonnements;
 

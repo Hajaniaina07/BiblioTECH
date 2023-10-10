@@ -86,7 +86,7 @@ void LivreDetail::setDetailLivre(){
     ui->synopsisEdit->setPlainText(livre.resume);
 
     int day = livre.publication.day();
-    QString month = livre.publication.toString("MMMM");
+    QString month = QLocale(QLocale::French).monthName(livre.publication.month());
     int year = livre.publication.year();
 
     QString formattedDate = QString("%1 %2 %3").arg(day).arg(month).arg(year);

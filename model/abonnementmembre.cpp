@@ -9,6 +9,7 @@ AbonnementMembre::AbonnementMembre(int id, const Membre& membre, const Abonnemen
     : id(id), membre(membre), abonnement(abonnement), debut(debut), fin(fin) {}
 
 void AbonnementMembre::addAbonnementMembre(const AbonnementMembre& abonnementMembre) {
+    qDebug() << "M : " << abonnementMembre.membre.id << "A : " << abonnementMembre.abonnement.id ;
     QSqlQuery query;
     query.prepare("INSERT INTO ABONNEMENT_MEMBRE (Membre_ID, Abonnement_ID, Debut, Fin) "
                   "VALUES (?, ?, ?, ?)");
@@ -128,35 +129,20 @@ QList<AbonnementMembre> AbonnementMembre::getAbonnementMembreByMembreId(int memb
     QList<AbonnementMembre> result;
 
     QSqlQuery query;
-    query.prepare("SELECT AbonnementMembre.id, Membre.id AS membre_id, Membre.nom, Membre.prenom, Membre.naissance, Membre.adresse, Membre.contact, Abonnement.id AS abonnement_id, Abonnement.nom AS abonnement_nom, Abonnement.duree, Abonnement.maxEmpruntSimultane, Abonnement.maxDureeEmpruntUnitaire, AbonnementMembre.debut, AbonnementMembre.fin "
-                  "FROM AbonnementMembre "
-                  "JOIN Membre ON AbonnementMembre.membre_id = Membre.id "
-                  "JOIN Abonnement ON AbonnementMembre.abonnement_id = Abonnement.id "
-                  "WHERE Membre.id = ?");
+    query.prepare("SELECT * FROM ABONNEMENT_MEMBRE WHERE membre_id = ? ORDER BY ABONNEMENT_MEMBRE.fin DESC");
     query.addBindValue(membreId);
 
     if (query.exec()) {
         while (query.next()) {
-            AbonnementMembre abonnementMembre;
-            abonnementMembre.id = query.value("id").toInt();
-
-            abonnementMembre.membre.id = query.value("membre_id").toInt();
-            abonnementMembre.membre.nom = query.value("nom").toString();
-            abonnementMembre.membre.prenom = query.value("prenom").toString();
-            abonnementMembre.membre.naissance = query.value("naissance").toDate();
-            abonnementMembre.membre.adresse = query.value("adresse").toString();
-            abonnementMembre.membre.contact = query.value("contact").toString();
-
-            abonnementMembre.abonnement.id = query.value("abonnement_id").toInt();
-            abonnementMembre.abonnement.nom = query.value("abonnement_nom").toString();
-            abonnementMembre.abonnement.duree = query.value("duree").toInt();
-            abonnementMembre.abonnement.maxEmpruntSimultane = query.value("maxEmpruntSimultane").toInt();
-            abonnementMembre.abonnement.maxDureeEmpruntUnitaire = query.value("maxDureeEmpruntUnitaire").toInt();
-
-            abonnementMembre.debut = query.value("debut").toDate();
-            abonnementMembre.fin = query.value("fin").toDate();
-
-            result.append(abonnementMembre);
+            AbonnementMembre am;
+            am.id = query.value("id").toInt();
+            am.membre.id = query.value("membre_id").toInt();
+            am.abonnement.id = query.value("abonnement_id").toInt();
+            am.debut = query.value("debut").toDate();
+            am.fin = query.value("fin").toDate();
+            am.membre = Membre::getById(am.membre.id);
+            am.abonnement = Abonnement::getById(am.abonnement.id);
+            result.append(am);
         }
     } else {
         qDebug() << "Erreur lors de la récupération des abonnements membres :" << query.lastError().text();
@@ -164,7 +150,4 @@ QList<AbonnementMembre> AbonnementMembre::getAbonnementMembreByMembreId(int memb
 
     return result;
 }
-
-
-
 

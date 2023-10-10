@@ -23,6 +23,18 @@
       <height>401</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">background-image: url(:/res/img/background.png);</string>
+    </property>
+    <property name="editTriggers">
+     <set>QAbstractItemView::NoEditTriggers</set>
+    </property>
+    <property name="selectionMode">
+     <enum>QAbstractItemView::SingleSelection</enum>
+    </property>
+    <property name="selectionBehavior">
+     <enum>QAbstractItemView::SelectRows</enum>
+    </property>
     <column>
      <property name="text">
       <string>Abonnement</string>
@@ -588,7 +600,7 @@
       <string>Début :</string>
      </property>
     </widget>
-    <widget class="QDateEdit" name="dateEdit">
+    <widget class="QDateEdit" name="dateDebutAbonnementEdit">
      <property name="geometry">
       <rect>
        <x>90</x>
