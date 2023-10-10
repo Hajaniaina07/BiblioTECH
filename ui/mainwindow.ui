@@ -409,7 +409,7 @@ Emprunts</string>
          </property>
         </column>
        </widget>
-       <widget class="QPushButton" name="pushButton_2">
+       <widget class="QPushButton" name="empruntButton">
         <property name="geometry">
          <rect>
           <x>400</x>
@@ -422,7 +422,7 @@ Emprunts</string>
          <string>Emprunts</string>
         </property>
        </widget>
-       <widget class="QPushButton" name="pushButton_3">
+       <widget class="QPushButton" name="membreButton">
         <property name="geometry">
          <rect>
           <x>290</x>
@@ -477,6 +477,77 @@ Emprunts</string>
         </property>
         <property name="text">
          <string>Abonnement</string>
+        </property>
+       </widget>
+       <widget class="QTableWidget" name="membreTableWidget">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>60</y>
+          <width>931</width>
+          <height>431</height>
+         </rect>
+        </property>
+        <property name="selectionMode">
+         <enum>QAbstractItemView::SingleSelection</enum>
+        </property>
+        <property name="selectionBehavior">
+         <enum>QAbstractItemView::SelectRows</enum>
+        </property>
+        <column>
+         <property name="text">
+          <string>Nom</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Prenom</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Date de naissance</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Contact</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Abonnement</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Début</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Fin</string>
+         </property>
+        </column>
+       </widget>
+       <widget class="QLabel" name="label">
+        <property name="geometry">
+         <rect>
+          <x>350</x>
+          <y>0</y>
+          <width>191</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Segoe Script</family>
+          <pointsize>26</pointsize>
+          <underline>true</underline>
+         </font>
+        </property>
+        <property name="text">
+         <string>Membres</string>
         </property>
        </widget>
       </widget>

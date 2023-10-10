@@ -25,6 +25,8 @@ public:
     static QList<AbonnementMembre> getAllAbonnementMembres();
     static void updateAbonnementMembre(const AbonnementMembre& abonnementMembre);
     static void deleteAbonnementMembre(int abonnementMembreId);
+    static QList<AbonnementMembre> getMembres();
+    static AbonnementMembre getByMembreID(int membreId);
 };
 
 

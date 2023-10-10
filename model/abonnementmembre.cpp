@@ -86,3 +86,43 @@ void AbonnementMembre::deleteAbonnementMembre(int abonnementMembreId) {
         qDebug() << "Erreur lors de la suppression de l'abonnement du membre : " << query.lastError().text();
     }
 }
+
+QList<AbonnementMembre> AbonnementMembre::getMembres() {
+    QList<AbonnementMembre> result;
+    QList<Membre> membres = Membre::getAllMembres();
+    for(const Membre& membre : membres){
+        AbonnementMembre abonnementMembre = getByMembreID(membre.id);
+        if(abonnementMembre.id == 0){
+            abonnementMembre.membre = membre;
+        }
+        result.append(abonnementMembre);
+    }
+    return result;
+}
+
+AbonnementMembre AbonnementMembre::getByMembreID(int membreId) {
+    AbonnementMembre abonnementMembre;
+
+    QSqlQuery query("SELECT Membre.id AS MembreId, Membre.nom AS NomMembre, Membre.prenom AS PrenomMembre, Membre.naissance AS NaissanceMembre, Membre.contact AS ContactMembre, Membre.adresse AS AdresseMembre, Abonnement.id AS AbonnementId, Abonnement.nom AS NomAbonnement, AbonnementMembre.id AS AbonnementMembreId, AbonnementMembre.debut AS DebutAbonnement, AbonnementMembre.fin AS FinAbonnement FROM Membre LEFT JOIN AbonnementMembre ON Membre.id = AbonnementMembre.membre_id LEFT JOIN Abonnement AS Abonnement ON Abonnement.id = AbonnementMembre.abonnement_id WHERE Membre.id = :membreId AND (AbonnementMembre.membre_id IS NULL OR AbonnementMembre.fin = (SELECT MAX(fin) FROM AbonnementMembre WHERE membre_id = :membreId))");
+
+    query.bindValue(":membreId", membreId);
+
+    if (query.next()) {
+        abonnementMembre.id = query.value("AbonnementMembreId").toInt();
+        abonnementMembre.membre.id = query.value("MembreId").toInt();
+        abonnementMembre.membre.nom = query.value("NomMembre").toString();
+        abonnementMembre.membre.prenom = query.value("PrenomMembre").toString();
+        abonnementMembre.membre.naissance = query.value("NaissanceMembre").toDate();
+        abonnementMembre.membre.contact = query.value("ContactMembre").toString();
+        abonnementMembre.membre.adresse = query.value("AdresseMembre").toString();
+        abonnementMembre.abonnement.id = query.value("AbonnementId").toInt();
+        abonnementMembre.abonnement.nom = query.value("NomAbonnement").toString();
+        abonnementMembre.debut = query.value("DebutAbonnement").toDate();
+        abonnementMembre.fin = query.value("FinAbonnement").toDate();
+    }
+
+    return abonnementMembre;
+}
+
+
+

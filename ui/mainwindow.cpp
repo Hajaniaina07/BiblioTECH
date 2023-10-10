@@ -4,6 +4,7 @@
 #include "ui/auteurwindow.h"
 #include "ui/abonnementwindow.h"
 #include "ui/newmembrewindow.h"
+#include "ui/livredetail.h"
 #include "model/utilisateur.h"
 #include "manager/DatabaseManager.h"
 #include <QMessageBox>
@@ -14,7 +15,6 @@ MainWindow::MainWindow(QWidget *parent)
 {
     setFixedSize(950,550);
     ui->setupUi(this);
-    getListLivre();
 }
 
 MainWindow::~MainWindow()
@@ -26,12 +26,14 @@ MainWindow::~MainWindow()
 void MainWindow::on_livre_btn_clicked()
 {
     ui->principal->setCurrentIndex(2);
+    getListLivre();
 }
 
 
 void MainWindow::on_membre_btn_clicked()
 {
     ui->principal->setCurrentIndex(3);
+    getListMembre();
 }
 
 
@@ -43,8 +45,7 @@ void MainWindow::on_emprunt_btn_clicked()
 
 void MainWindow::on_lb_accueil_clicked()
 {
-    ui->principal->setCurrentIndex(2);
-    getListLivre();
+    on_livre_btn_clicked();
 }
 
 
@@ -89,7 +90,7 @@ void MainWindow::on_pushButton_clicked()
     QString mdp = ui->mdpEdit->text();
     Utilisateur utilisateur = Utilisateur(login,mdp);
     if(utilisateur.isConnected()){
-        ui->principal->setCurrentIndex(2);
+        on_livre_btn_clicked();
     }else{
         QMessageBox::critical(this, "Erreur de connection", "Login ou mot de passe incorrect");
     }
@@ -112,7 +113,7 @@ void  MainWindow::getListLivre()
 
     ui->livreTableWidget->verticalHeader()->setVisible(false);
     ui->livreTableWidget->setColumnWidth(0, 250);
-    ui->livreTableWidget->setColumnWidth(2, 150);
+    ui->livreTableWidget->setColumnWidth(2, 178);
 
     if (DatabaseManager::openConnection()) {
         listeLivres = Livre::getAllLivres();
@@ -146,7 +147,47 @@ void  MainWindow::getListLivre()
 }
 
 void MainWindow::getListMembre(){
+    ui->membreTableWidget->setRowCount(0);
+    ui->membreTableWidget->verticalHeader()->setVisible(false);
 
+    ui->membreTableWidget->setColumnWidth(0, 189);
+    ui->membreTableWidget->setColumnWidth(1, 190);
+    ui->membreTableWidget->setColumnWidth(4, 150);
+
+    if (DatabaseManager::openConnection()) {
+        listeMembres = AbonnementMembre::getMembres();
+        int row = 0;
+        for(const AbonnementMembre& am : listeMembres){
+            ui->membreTableWidget->insertRow(row);
+            ui->membreTableWidget->setItem(row, 0, new QTableWidgetItem(am.membre.nom));
+            ui->membreTableWidget->setItem(row, 1, new QTableWidgetItem(am.membre.prenom));
+            ui->membreTableWidget->setItem(row, 2, new QTableWidgetItem(am.membre.naissance.toString("dd/MM/yyyy")));
+            ui->membreTableWidget->setItem(row, 3, new QTableWidgetItem(am.membre.contact));
+            if(am.id != 0){
+                ui->membreTableWidget->setItem(row, 4, new QTableWidgetItem(am.abonnement.nom));
+                ui->membreTableWidget->setItem(row, 5, new QTableWidgetItem(am.debut.toString("dd/MM/yyyy")));
+                QTableWidgetItem *finItem = new QTableWidgetItem(am.fin.toString("dd/MM/yyyy"));
+                QDate currentDate = QDate::currentDate();
+                if(am.fin < currentDate){
+                    finItem->setForeground(QBrush(Qt::red));
+                }else finItem->setForeground(QBrush(Qt::green));
+                ui->membreTableWidget->setItem(row, 6, finItem);
+            }else{
+                ui->membreTableWidget->setItem(row, 4, new QTableWidgetItem("-"));
+                ui->membreTableWidget->setItem(row, 5, new QTableWidgetItem("-"));
+                ui->membreTableWidget->setItem(row, 6, new QTableWidgetItem("-"));
+            }
+
+            ui->membreTableWidget->item(row,2)->setTextAlignment(Qt::AlignCenter);
+            ui->membreTableWidget->item(row,3)->setTextAlignment(Qt::AlignRight);
+            ui->membreTableWidget->item(row,4)->setTextAlignment(Qt::AlignCenter);
+            ui->membreTableWidget->item(row,5)->setTextAlignment(Qt::AlignCenter);
+            ui->membreTableWidget->item(row,6)->setTextAlignment(Qt::AlignCenter);
+
+            row++;
+        }
+        DatabaseManager::closeConnection();
+    }
 }
 
 void MainWindow::on_livreTableWidget_cellDoubleClicked(int row, int column)
@@ -161,12 +202,11 @@ void MainWindow::on_livreTableWidget_cellDoubleClicked(int row, int column)
 
 void MainWindow::on_lb_accueil_2_clicked()
 {
-    ui->principal->setCurrentIndex(2);
-    getListLivre();
+    on_livre_btn_clicked();
 }
 
 
-void MainWindow::on_pushButton_3_clicked()
+void MainWindow::on_membreButton_clicked()
 {
     ui->principal->setCurrentIndex(3);
     getListMembre();
