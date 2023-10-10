@@ -4,6 +4,7 @@
 #include "ui/auteurwindow.h"
 #include "ui/abonnementwindow.h"
 #include "ui/newmembrewindow.h"
+#include "ui/membreabonnementwindow.h"
 #include "ui/livredetail.h"
 #include "model/utilisateur.h"
 #include "manager/DatabaseManager.h"
@@ -126,13 +127,13 @@ void  MainWindow::getListLivre()
             titleItem->setFont(font);
 
             QTableWidgetItem *genreItem = new QTableWidgetItem(livre.categorie.nom);
-            genreItem->setTextAlignment(Qt::AlignCenter);
+            genreItem->setTextAlignment(Qt::AlignCenter | Qt::AlignVCenter);
 
             QTableWidgetItem *pageItem = new QTableWidgetItem(QString::number(livre.page));
-            pageItem->setTextAlignment(Qt::AlignCenter);
+            pageItem->setTextAlignment(Qt::AlignCenter | Qt::AlignVCenter);
 
             QTableWidgetItem *publicationItem = new QTableWidgetItem(livre.publication.toString("dd/MM/yyyy"));
-            publicationItem->setTextAlignment(Qt::AlignCenter);
+            publicationItem->setTextAlignment(Qt::AlignCenter | Qt::AlignVCenter);
 
             ui->livreTableWidget->setItem(row, 0, titleItem);
             ui->livreTableWidget->setItem(row, 1, genreItem);
@@ -178,11 +179,11 @@ void MainWindow::getListMembre(){
                 ui->membreTableWidget->setItem(row, 6, new QTableWidgetItem("-"));
             }
 
-            ui->membreTableWidget->item(row,2)->setTextAlignment(Qt::AlignCenter);
-            ui->membreTableWidget->item(row,3)->setTextAlignment(Qt::AlignRight);
-            ui->membreTableWidget->item(row,4)->setTextAlignment(Qt::AlignCenter);
-            ui->membreTableWidget->item(row,5)->setTextAlignment(Qt::AlignCenter);
-            ui->membreTableWidget->item(row,6)->setTextAlignment(Qt::AlignCenter);
+            ui->membreTableWidget->item(row,2)->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
+            ui->membreTableWidget->item(row,3)->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
+            ui->membreTableWidget->item(row,4)->setTextAlignment(Qt::AlignCenter | Qt::AlignVCenter);
+            ui->membreTableWidget->item(row,5)->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
+            ui->membreTableWidget->item(row,6)->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
 
             row++;
         }
@@ -226,6 +227,16 @@ void MainWindow::on_newMembreButton_clicked()
 {
     NewMembreWindow *w  = new NewMembreWindow(this);
     w->setWindowTitle("Nouveau membre");
+    w->setAttribute(Qt::WA_DeleteOnClose);
+    w->show();
+}
+
+
+void MainWindow::on_membreTableWidget_cellDoubleClicked(int row, int column)
+{
+    AbonnementMembre am = listeMembres[row];
+    MembreAbonnementWindow *w  = new MembreAbonnementWindow(am, this);
+    w->setWindowTitle("Fiche du membre");
     w->setAttribute(Qt::WA_DeleteOnClose);
     w->show();
 }

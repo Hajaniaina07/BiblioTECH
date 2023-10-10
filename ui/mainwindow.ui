@@ -32,7 +32,7 @@
    <string>BiblioTECH</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="../qrc/img.qrc">
+   <iconset resource="../qrc/logo.qrc">
     <normaloff>:/res/img/logo1.png</normaloff>:/res/img/logo1.png</iconset>
   </property>
   <property name="styleSheet">
@@ -488,6 +488,12 @@ Emprunts</string>
           <height>431</height>
          </rect>
         </property>
+        <property name="cursor" stdset="0">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
+        <property name="editTriggers">
+         <set>QAbstractItemView::NoEditTriggers</set>
+        </property>
         <property name="selectionMode">
          <enum>QAbstractItemView::SingleSelection</enum>
         </property>
@@ -506,7 +512,7 @@ Emprunts</string>
         </column>
         <column>
          <property name="text">
-          <string>Date de naissance</string>
+          <string>Naissance</string>
          </property>
         </column>
         <column>
@@ -569,7 +575,7 @@ Emprunts</string>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources>
-  <include location="../qrc/img.qrc"/>
+  <include location="../qrc/logo.qrc"/>
  </resources>
  <connections/>
 </ui>

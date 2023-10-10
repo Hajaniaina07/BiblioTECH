@@ -27,6 +27,7 @@ SOURCES += \
     ui/livrewindow.cpp \
     ui/mainwindow.cpp \
     manager/MembreManager.cpp \
+    ui/membreabonnementwindow.cpp \
     ui/newempruntwindow.cpp \
     ui/newmembrewindow.cpp \
     util/util.cpp
@@ -50,6 +51,7 @@ HEADERS += \
     ui/mainwindow.h \
     manager/MembreManager.h \
     model/membre.h \
+    ui/membreabonnementwindow.h \
     ui/newempruntwindow.h \
     ui/newmembrewindow.h \
     util/util.h
@@ -60,6 +62,7 @@ FORMS += \
     ui/livredetail.ui \
     ui/livrewindow.ui \
     ui/mainwindow.ui \
+    ui/membreabonnementwindow.ui \
     ui/newempruntwindow.ui \
     ui/newmembrewindow.ui
 

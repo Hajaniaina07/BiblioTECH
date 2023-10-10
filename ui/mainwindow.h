@@ -54,6 +54,8 @@ private slots:
 
     void on_newMembreButton_clicked();
 
+    void on_membreTableWidget_cellDoubleClicked(int row, int column);
+
 private:
     Ui::MainWindow *ui;
     QSqlDatabase db;
