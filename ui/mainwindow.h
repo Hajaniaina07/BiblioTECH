@@ -8,6 +8,7 @@
 #include <QDebug>
 #include "model/livre.h"
 #include "model/abonnementmembre.h"
+#include "model/emprunt.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -22,6 +23,7 @@ public:
     ~MainWindow();
     void getListLivre();
     void getListMembre();
+    void getListEmprunts();
 
 private slots:
     void on_livre_btn_clicked();
@@ -56,12 +58,19 @@ private slots:
 
     void on_membreTableWidget_cellDoubleClicked(int row, int column);
 
+    void on_lb_accueil_3_clicked();
+
+    void on_newEmpruntButton_clicked();
+
+    void on_empruntButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     QSqlDatabase db;
     QSqlTableModel *model;
     QList<Livre> listeLivres;
     QList<AbonnementMembre> listeMembres;
+    QList<Emprunt> listeEmprunts;
 
 };
 #endif // MAINWINDOW_H

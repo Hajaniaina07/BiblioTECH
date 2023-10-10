@@ -45,6 +45,9 @@
       <property name="styleSheet">
        <string notr="true">background-image: url(:/res/img/background.png);</string>
       </property>
+      <property name="currentIndex">
+       <number>4</number>
+      </property>
       <widget class="QWidget" name="login">
        <widget class="QWidget" name="layoutWidget">
         <property name="geometry">
@@ -557,7 +560,111 @@ Emprunts</string>
         </property>
        </widget>
       </widget>
-      <widget class="QWidget" name="emprunts"/>
+      <widget class="QWidget" name="emprunts">
+       <widget class="QPushButton" name="lb_accueil_3">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>121</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">image: url(:/res/img/icone.png);</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_4">
+        <property name="geometry">
+         <rect>
+          <x>350</x>
+          <y>0</y>
+          <width>191</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Segoe Script</family>
+          <pointsize>26</pointsize>
+          <underline>true</underline>
+         </font>
+        </property>
+        <property name="text">
+         <string>Emprunts</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="newEmpruntButton">
+        <property name="geometry">
+         <rect>
+          <x>720</x>
+          <y>0</y>
+          <width>201</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Enregistrer un nouveau emprunt</string>
+        </property>
+       </widget>
+       <widget class="QTableWidget" name="empruntTableWidget">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>61</y>
+          <width>931</width>
+          <height>441</height>
+         </rect>
+        </property>
+        <property name="editTriggers">
+         <set>QAbstractItemView::NoEditTriggers</set>
+        </property>
+        <property name="selectionMode">
+         <enum>QAbstractItemView::SingleSelection</enum>
+        </property>
+        <property name="selectionBehavior">
+         <enum>QAbstractItemView::SelectRows</enum>
+        </property>
+        <column>
+         <property name="text">
+          <string>Livre</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Genre</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Membre</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Emprunté le</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>A rendre le</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Rendue le</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Note /10</string>
+         </property>
+        </column>
+       </widget>
+      </widget>
      </widget>
     </item>
    </layout>

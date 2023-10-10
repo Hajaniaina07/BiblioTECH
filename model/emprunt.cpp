@@ -34,7 +34,7 @@ void Emprunt::addEmprunt(const Emprunt& emprunt) {
 QList<Emprunt> Emprunt::getAllEmprunts() {
     QList<Emprunt> listeEmprunts;
 
-    QSqlQuery query("SELECT * FROM Emprunt");
+    QSqlQuery query("SELECT * FROM Emprunt order by date_emprunt desc");
     while (query.next()) {
         Emprunt emprunt;
         emprunt.id = query.value("id").toInt();
@@ -43,6 +43,8 @@ QList<Emprunt> Emprunt::getAllEmprunts() {
         emprunt.dateEmprunt = query.value("date_emprunt").toDate();
         emprunt.dateMax = query.value("date_max").toDate();
         emprunt.dateRendue = query.value("date_rendue").toDate();
+        emprunt.membre = Membre::getById(emprunt.membre.id);
+        emprunt.livre= Livre::findLivreById(emprunt.livre.id);
         listeEmprunts.append(emprunt);
     }
 
@@ -73,4 +75,10 @@ void Emprunt::deleteEmprunt(int empruntId) {
     if (!query.exec()) {
         qDebug() << "Erreur lors de la suppression de l'emprunt:" << query.lastError().text();
     }
+}
+
+
+BoolResult Emprunt::validateEmprunt(const Emprunt& emprunt){
+    BoolResult res;
+    return res;
 }

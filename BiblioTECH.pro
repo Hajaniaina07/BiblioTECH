@@ -30,6 +30,7 @@ SOURCES += \
     ui/membreabonnementwindow.cpp \
     ui/newempruntwindow.cpp \
     ui/newmembrewindow.cpp \
+    util/boolResult.cpp \
     util/util.cpp
 
 HEADERS += \
@@ -54,6 +55,7 @@ HEADERS += \
     ui/membreabonnementwindow.h \
     ui/newempruntwindow.h \
     ui/newmembrewindow.h \
+    util/boolResult.h \
     util/util.h
 
 FORMS += \

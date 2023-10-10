@@ -9,6 +9,7 @@ class Util
 public:
     Util();
     static int getSelectedItem(QComboBox* comboBox);
+    static QBrush couleurPourNote(float note);
 };
 
 #endif // UTIL_H

@@ -14,3 +14,14 @@ int Util::getSelectedItem(QComboBox* comboBox)
     }
     return -1;
 }
+
+QBrush Util::couleurPourNote(float note) {
+    QColor start = Qt::red;
+    QColor end = Qt::green;
+
+    qreal noteNormalisee = (note - 0) / (10 - 0);
+
+    QColor couleurInterpolee = start.rgb() * (1 - noteNormalisee) + end.rgb() * noteNormalisee;
+
+    return QBrush(couleurInterpolee);
+}
