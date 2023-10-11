@@ -45,6 +45,7 @@ QList<Emprunt> Emprunt::getAllEmprunts() {
         emprunt.dateEmprunt = query.value("date_emprunt").toDate();
         emprunt.dateMax = query.value("date_max").toDate();
         emprunt.dateRendue = query.value("date_rendue").toDate();
+        emprunt.note = query.value("evaluation").toDouble();
         emprunt.membre = Membre::getById(emprunt.membre.id);
         emprunt.livre= Livre::findLivreById(emprunt.livre.id);
         listeEmprunts.append(emprunt);
@@ -69,6 +70,7 @@ QList<Emprunt> Emprunt::getTopLatest(int idMembre) {
             emprunt.dateEmprunt = query.value("date_emprunt").toDate();
             emprunt.dateMax = query.value("date_max").toDate();
             emprunt.dateRendue = query.value("date_rendue").toDate();
+            emprunt.note = query.value("evaluation").toDouble();
             emprunt.livre = Livre::findLivreById(emprunt.livre.id);
             listeEmprunts.append(emprunt);
         }
@@ -82,19 +84,22 @@ QList<Emprunt> Emprunt::getTopLatest(int idMembre) {
 
 void Emprunt::updateEmprunt(const Emprunt& emprunt) {
     QSqlQuery query;
-    query.prepare("UPDATE Emprunt SET livre_id = ?, membre_id = ?, date_emprunt = ?, date_max = ?, date_rendue = ? "
+    query.prepare("UPDATE Emprunt SET livre_id = ?, membre_id = ?, date_emprunt = ?, date_max = ?, date_rendue = ?, evaluation = ? "
                   "WHERE id = ?");
+
     query.addBindValue(emprunt.livre.id);
     query.addBindValue(emprunt.membre.id);
     query.addBindValue(emprunt.dateEmprunt.toString("yyyy-MM-dd"));
     query.addBindValue(emprunt.dateMax.toString("yyyy-MM-dd"));
     query.addBindValue(emprunt.dateRendue.toString("yyyy-MM-dd"));
+    query.addBindValue(emprunt.note);
     query.addBindValue(emprunt.id);
 
     if (!query.exec()) {
         qDebug() << "Erreur lors de la mise à jour de l'emprunt:" << query.lastError().text();
     }
 }
+
 
 void Emprunt::deleteEmprunt(int empruntId) {
     QSqlQuery query;

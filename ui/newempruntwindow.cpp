@@ -38,7 +38,7 @@ void NewEmpruntWindow::getList(){
         model->appendRow(new QStandardItem(""));  // Ajoutez une ligne vide
 
         for (const Livre &livre : listeLivres) {
-            QString nomComplet = QString("%1 | %2 %3").arg(emprunt.livre.titre).arg(emprunt.livre.auteur.prenom).arg(emprunt.livre.auteur.nom);
+            QString nomComplet = QString("%1 | %2 %3").arg(livre.titre).arg(livre.auteur.prenom).arg(emprunt.livre.auteur.nom);
             QStandardItem *item = new QStandardItem(nomComplet);
             model->appendRow(item);
         }
@@ -61,7 +61,7 @@ void NewEmpruntWindow::getList(){
         modelM->appendRow(new QStandardItem(""));
 
         for(const Membre &membre : listeMembres){
-            QString nomComplet = QString("%1 %2").arg(emprunt.membre.nom).arg(emprunt.membre.prenom);
+            QString nomComplet = QString("%1 %2").arg(membre.nom).arg(membre.prenom);
             QStandardItem *item = new QStandardItem(nomComplet);
             modelM->appendRow(item);
         }
@@ -107,8 +107,10 @@ void NewEmpruntWindow::setSelectedItems(){
 
 void NewEmpruntWindow::on_validateEmpruntButton_clicked()
 {
-    emprunt.dateEmprunt = ui->dateUmpruntEdit->date();
     if(emprunt.id != 0){
+        int maxDay = emprunt.dateEmprunt.daysTo(emprunt.dateMax);
+        emprunt.dateEmprunt = ui->dateUmpruntEdit->date();
+        emprunt.dateMax = emprunt.dateEmprunt.addDays(maxDay);
         if(DatabaseManager::openConnection()){
             Emprunt::updateEmprunt(emprunt);
             QMessageBox::information(this, "Succès", "Date emprunt modifiié !");
@@ -119,6 +121,7 @@ void NewEmpruntWindow::on_validateEmpruntButton_clicked()
         int indexSelectedLivre = Util::getSelectedItem(ui->livresComboBox);
         int indexSelectedMembre = Util::getSelectedItem(ui->membreComboBox);
 
+        emprunt.dateEmprunt = ui->dateUmpruntEdit->date();
         if(indexSelectedMembre > -1 && indexSelectedLivre > -1){
             emprunt.livre = listeLivres[indexSelectedLivre];
             emprunt.membre = listeMembres[indexSelectedMembre];
