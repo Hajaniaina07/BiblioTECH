@@ -21,7 +21,7 @@ public:
 private slots:
     void on_addNewButton_clicked();
 
-    void on_abonnementTableWidget_cellDoubleClicked(int row, int column);
+    void on_abonnementTableWidget_cellDoubleClicked(int row);
 
     void update();
 
@@ -29,6 +29,12 @@ private:
     Ui::AbonnementWindow *ui;
     QList<Abonnement> listeAbonnements;
     Abonnement abonnement;
+
+protected:
+    void closeEvent(QCloseEvent *event) override;
+
+signals:
+    void closeWindow();
 };
 
 #endif // ABONNEMENTWINDOW_H

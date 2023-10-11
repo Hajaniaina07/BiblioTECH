@@ -49,6 +49,12 @@ private:
     QList<Categorie> listeCategories;
     QList<Editeur> listeEditeurs;
     QList<Langue> listeLangues;
+
+protected:
+    void closeEvent(QCloseEvent *event) override;
+
+signals:
+    void closeWindow();
 };
 
 #endif // LIVREDETAIL_H

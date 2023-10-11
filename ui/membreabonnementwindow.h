@@ -29,7 +29,7 @@ private slots:
 
     void on_cancelEditButton_clicked();
 
-    void on_amTableWidget_cellDoubleClicked(int row, int column);
+    void on_amTableWidget_cellDoubleClicked(int row);
 
 private:
     Ui::MembreAbonnementWindow *ui;
@@ -37,6 +37,12 @@ private:
     Membre membre;
     QList<AbonnementMembre> ams;
     QList<Abonnement> listeAbonnements;
+
+protected:
+    void closeEvent(QCloseEvent *event) override;
+
+signals:
+    void closeWindow();
 };
 
 #endif // MEMBREABONNEMENTWINDOW_H

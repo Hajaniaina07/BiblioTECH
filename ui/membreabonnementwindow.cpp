@@ -134,7 +134,7 @@ void MembreAbonnementWindow::setListAbonnement(){
     }
 }
 
-void MembreAbonnementWindow::on_amTableWidget_cellDoubleClicked(int row, int column)
+void MembreAbonnementWindow::on_amTableWidget_cellDoubleClicked(int row)
 {
     AbonnementMembre am = ams.at(row);
     QMessageBox::StandardButton reply;
@@ -149,3 +149,8 @@ void MembreAbonnementWindow::on_amTableWidget_cellDoubleClicked(int row, int col
     }
 }
 
+
+void MembreAbonnementWindow::closeEvent(QCloseEvent *event){
+    emit closeWindow();
+    QMainWindow::closeEvent(event);
+}

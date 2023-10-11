@@ -78,7 +78,7 @@ void AuteurWindow::setupTable()
 }
 
 
-void AuteurWindow::on_tableWidget_cellClicked(int row, int column)
+void AuteurWindow::on_tableWidget_cellClicked(int row)
 {
     auteur = listeAuteurs.at(row);
 }
@@ -134,3 +134,7 @@ void AuteurWindow::on_deleteButton_clicked()
     }
 }
 
+void AuteurWindow::closeEvent(QCloseEvent *event){
+    emit closeWindow();
+    QMainWindow::closeEvent(event);
+}

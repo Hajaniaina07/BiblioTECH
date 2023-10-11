@@ -174,7 +174,7 @@ void LivreWindow::on_tableWidget_cellClicked(int row)
     selectedRow = row;
 }
 
-bool  LivreWindow::nomExist(QString nom, QList<BaseModel> baseModels){
+bool LivreWindow::nomExist(QString nom, QList<BaseModel> baseModels){
     bool exist = false;
     for (const BaseModel& baseModel : baseModels) {
         if (baseModel.nom == nom) {
@@ -182,4 +182,10 @@ bool  LivreWindow::nomExist(QString nom, QList<BaseModel> baseModels){
         }
     }
     return exist;
+}
+
+
+void LivreWindow::closeEvent(QCloseEvent *event){
+    emit closeWindow();
+    QMainWindow::closeEvent(event);
 }

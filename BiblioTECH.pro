@@ -23,10 +23,10 @@ SOURCES += \
     model/utilisateur.cpp \
     ui/abonnementwindow.cpp \
     ui/auteurwindow.cpp \
+    ui/empruntmenu.cpp \
     ui/livredetail.cpp \
     ui/livrewindow.cpp \
     ui/mainwindow.cpp \
-    manager/MembreManager.cpp \
     ui/membreabonnementwindow.cpp \
     ui/newempruntwindow.cpp \
     ui/newmembrewindow.cpp \
@@ -47,10 +47,10 @@ HEADERS += \
     model/utilisateur.h \
     ui/abonnementwindow.h \
     ui/auteurwindow.h \
+    ui/empruntmenu.h \
     ui/livredetail.h \
     ui/livrewindow.h \
     ui/mainwindow.h \
-    manager/MembreManager.h \
     model/membre.h \
     ui/membreabonnementwindow.h \
     ui/newempruntwindow.h \
@@ -61,6 +61,7 @@ HEADERS += \
 FORMS += \
     ui/abonnementwindow.ui \
     ui/auteurwindow.ui \
+    ui/empruntmenu.ui \
     ui/livredetail.ui \
     ui/livrewindow.ui \
     ui/mainwindow.ui \

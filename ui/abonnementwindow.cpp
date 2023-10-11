@@ -59,7 +59,7 @@ void AbonnementWindow::getList(){
 }
 
 
-void AbonnementWindow::on_abonnementTableWidget_cellDoubleClicked(int row, int column)
+void AbonnementWindow::on_abonnementTableWidget_cellDoubleClicked(int row)
 {
     Abonnement abonnement = listeAbonnements[row];
     ui->nomEdit->setText(abonnement.nom);
@@ -86,4 +86,10 @@ void AbonnementWindow:: update(){
         connect(ui->addNewButton, &QPushButton::clicked, this, &AbonnementWindow::on_addNewButton_clicked);
         getList();
     }
+}
+
+
+void AbonnementWindow::closeEvent(QCloseEvent *event){
+    emit closeWindow();
+    QMainWindow::closeEvent(event);
 }

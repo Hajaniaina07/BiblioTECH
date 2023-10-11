@@ -23,7 +23,7 @@ private slots:
     void removeAuteur(const Auteur& auteur);
     void getList();
 
-    void on_tableWidget_cellClicked(int row, int column);
+    void on_tableWidget_cellClicked(int row);
 
     void on_editButton_clicked();
 
@@ -34,6 +34,12 @@ private:
     QList<Auteur> listeAuteurs;
     Auteur auteur;
     void setupTable();
+
+protected:
+    void closeEvent(QCloseEvent *event) override;
+
+signals:
+    void closeWindow();
 };
 
 #endif

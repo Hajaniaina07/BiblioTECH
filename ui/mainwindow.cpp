@@ -7,6 +7,7 @@
 #include "ui/newmembrewindow.h"
 #include "ui/membreabonnementwindow.h"
 #include "ui/newempruntwindow.h"
+#include "ui/empruntmenu.h"
 #include "model/utilisateur.h"
 #include "model/utilisateur.h"
 #include "manager/DatabaseManager.h"
@@ -107,6 +108,7 @@ void MainWindow::on_lb_ajouter_clicked()
 {
     Livre livre = Livre();
     LivreDetail *w  = new LivreDetail(0,livre,this);
+    connect(w, &LivreDetail::closeWindow, this, &MainWindow::getListLivre);
     w->setWindowTitle("Nouveau livre");
     w->setAttribute(Qt::WA_DeleteOnClose);
     w->show();
@@ -241,10 +243,11 @@ void MainWindow::getListEmprunts(){
     }
 }
 
-void MainWindow::on_livreTableWidget_cellDoubleClicked(int row, int column)
+void MainWindow::on_livreTableWidget_cellDoubleClicked(int row)
 {
     Livre livre = listeLivres.at(row);
     LivreDetail *w  = new LivreDetail(1,livre,this);
+    connect(w, &LivreDetail::closeWindow, this, &MainWindow::getListLivre);
     w->setWindowTitle("Détail du livre");
     w->setAttribute(Qt::WA_DeleteOnClose);
     w->show();
@@ -267,8 +270,9 @@ void MainWindow::on_membreButton_clicked()
 void MainWindow::on_abonnementButton_clicked()
 {
     AbonnementWindow *w  = new AbonnementWindow(this);
+    connect(w, &AbonnementWindow::closeWindow, this, &MainWindow::getListMembre);
     w->setWindowTitle("Abonnement");
-        w->setAttribute(Qt::WA_DeleteOnClose);
+    w->setAttribute(Qt::WA_DeleteOnClose);
     w->show();
 }
 
@@ -276,16 +280,18 @@ void MainWindow::on_abonnementButton_clicked()
 void MainWindow::on_newMembreButton_clicked()
 {
     NewMembreWindow *w  = new NewMembreWindow(this);
+    connect(w, &NewMembreWindow::closeWindow, this, &MainWindow::getListMembre);
     w->setWindowTitle("Nouveau membre");
     w->setAttribute(Qt::WA_DeleteOnClose);
     w->show();
 }
 
 
-void MainWindow::on_membreTableWidget_cellDoubleClicked(int row, int column)
+void MainWindow::on_membreTableWidget_cellDoubleClicked(int row)
 {
     AbonnementMembre am = listeMembres[row];
     MembreAbonnementWindow *w  = new MembreAbonnementWindow(am, this);
+    connect(w, &MembreAbonnementWindow::closeWindow, this, &MainWindow::getListMembre);
     w->setWindowTitle("Fiche du membre");
     w->setAttribute(Qt::WA_DeleteOnClose);
     w->show();
@@ -300,9 +306,9 @@ void MainWindow::on_lb_accueil_3_clicked()
 
 void MainWindow::on_newEmpruntButton_clicked()
 {
-    Membre membre = Membre();
-    Livre livre = Livre();
-    NewEmpruntWindow *w  = new NewEmpruntWindow(0,livre, membre,this);
+    Emprunt em;
+    NewEmpruntWindow *w  = new NewEmpruntWindow(em,this);
+    connect(w, &NewEmpruntWindow::closeWindow, this, &MainWindow::getListEmprunts);
     w->setWindowTitle("Emprunt");
     w->setAttribute(Qt::WA_DeleteOnClose);
     w->show();
@@ -313,5 +319,16 @@ void MainWindow::on_empruntButton_clicked()
 {
     ui->principal->setCurrentIndex(4);
     getListEmprunts();
+}
+
+
+void MainWindow::on_empruntTableWidget_cellDoubleClicked(int row)
+{
+    Emprunt emprunt = listeEmprunts.at(row);
+    EmpruntMenu *w = new EmpruntMenu(emprunt,this);
+    connect(w, &EmpruntMenu::closeWindow, this, &MainWindow::getListEmprunts);
+    w->setWindowTitle("Menu");
+    w->setAttribute(Qt::WA_DeleteOnClose);
+    w->show();
 }
 

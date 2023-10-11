@@ -26,6 +26,12 @@ private:
     QList<Abonnement> listeAbonnements;
     Membre membre;
 
+protected:
+    void closeEvent(QCloseEvent *event) override;
+
+signals:
+    void closeWindow();
+
 };
 
 #endif // NEWMEMBREWINDOW_H

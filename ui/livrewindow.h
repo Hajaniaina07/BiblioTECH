@@ -48,6 +48,12 @@ private:
     QList<BaseModel> baseModels;
     BaseModel baseModel;
     int selectedRow = -1;
+
+protected:
+    void closeEvent(QCloseEvent *event) override;
+
+signals:
+    void closeWindow();
 };
 
 #endif // LIVREWINDOW_H

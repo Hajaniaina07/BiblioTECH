@@ -46,7 +46,7 @@ private slots:
 
     void on_lb_ajouter_clicked();
 
-    void on_livreTableWidget_cellDoubleClicked(int row, int column);
+    void on_livreTableWidget_cellDoubleClicked(int row);
 
     void on_lb_accueil_2_clicked();
 
@@ -56,13 +56,15 @@ private slots:
 
     void on_newMembreButton_clicked();
 
-    void on_membreTableWidget_cellDoubleClicked(int row, int column);
+    void on_membreTableWidget_cellDoubleClicked(int row);
 
     void on_lb_accueil_3_clicked();
 
     void on_newEmpruntButton_clicked();
 
     void on_empruntButton_clicked();
+
+    void on_empruntTableWidget_cellDoubleClicked(int row);
 
 private:
     Ui::MainWindow *ui;

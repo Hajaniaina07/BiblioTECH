@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>EmpruntMenu</class>
+ <widget class="QMainWindow" name="EmpruntMenu">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>293</width>
+    <height>200</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QStackedWidget" name="stackedWidget">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>301</width>
+      <height>151</height>
+     </rect>
+    </property>
+    <property name="currentIndex">
+     <number>0</number>
+    </property>
+    <widget class="QWidget" name="menu">
+     <widget class="QPushButton" name="deleteButton">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>110</y>
+        <width>231</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Supprimer</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="editDateButton">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>60</y>
+        <width>231</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Modifier la date d'emprunt</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="rendreButton">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>10</y>
+        <width>231</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Rendre</string>
+      </property>
+     </widget>
+     <widget class="QWidget" name="widget_2" native="true">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>291</width>
+        <height>171</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-image: url(:/res/img/background.png);</string>
+      </property>
+     </widget>
+     <zorder>widget_2</zorder>
+     <zorder>deleteButton</zorder>
+     <zorder>editDateButton</zorder>
+     <zorder>rendreButton</zorder>
+    </widget>
+    <widget class="QWidget" name="Rendre">
+     <widget class="QLabel" name="label_18">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>20</y>
+        <width>141</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Gabriola</family>
+        <pointsize>18</pointsize>
+        <bold>false</bold>
+        <underline>false</underline>
+       </font>
+      </property>
+      <property name="text">
+       <string>Note du livre  /10 :</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_19">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>60</y>
+        <width>131</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Gabriola</family>
+        <pointsize>18</pointsize>
+        <bold>false</bold>
+        <underline>false</underline>
+       </font>
+      </property>
+      <property name="text">
+       <string>Date de remise :</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="validateRendreButton">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>110</y>
+        <width>111</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Rendre</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="cancelButton">
+      <property name="geometry">
+       <rect>
+        <x>140</x>
+        <y>110</y>
+        <width>111</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Annuler</string>
+      </property>
+     </widget>
+     <widget class="QDateEdit" name="dateRemiseEdit">
+      <property name="geometry">
+       <rect>
+        <x>140</x>
+        <y>60</y>
+        <width>131</width>
+        <height>31</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QDoubleSpinBox" name="noteSpinBox">
+      <property name="geometry">
+       <rect>
+        <x>150</x>
+        <y>20</y>
+        <width>101</width>
+        <height>31</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QWidget" name="widget" native="true">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>291</width>
+        <height>171</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-image: url(:/res/img/background.png);</string>
+      </property>
+     </widget>
+     <zorder>widget</zorder>
+     <zorder>label_18</zorder>
+     <zorder>label_19</zorder>
+     <zorder>validateRendreButton</zorder>
+     <zorder>cancelButton</zorder>
+     <zorder>dateRemiseEdit</zorder>
+     <zorder>noteSpinBox</zorder>
+    </widget>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>293</width>
+     <height>21</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

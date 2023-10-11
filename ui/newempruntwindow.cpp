@@ -11,8 +11,8 @@
 #include <QLineEdit>
 
 
-NewEmpruntWindow::NewEmpruntWindow(const int& page,Livre& livre,Membre& membre, QWidget *parent) :
-    QMainWindow(parent),ui(new Ui::NewEmpruntWindow),livre(livre),membre(membre)
+NewEmpruntWindow::NewEmpruntWindow(Emprunt& emprunt, QWidget *parent) :
+    QMainWindow(parent),ui(new Ui::NewEmpruntWindow),emprunt(emprunt)
 {
     setFixedSize(320,250);
     ui->setupUi(this);
@@ -38,7 +38,7 @@ void NewEmpruntWindow::getList(){
         model->appendRow(new QStandardItem(""));  // Ajoutez une ligne vide
 
         for (const Livre &livre : listeLivres) {
-            QString nomComplet = QString("%1 | %2 %3").arg(livre.titre).arg(livre.auteur.prenom).arg(livre.auteur.nom);
+            QString nomComplet = QString("%1 | %2 %3").arg(emprunt.livre.titre).arg(emprunt.livre.auteur.prenom).arg(emprunt.livre.auteur.nom);
             QStandardItem *item = new QStandardItem(nomComplet);
             model->appendRow(item);
         }
@@ -61,7 +61,7 @@ void NewEmpruntWindow::getList(){
         modelM->appendRow(new QStandardItem(""));
 
         for(const Membre &membre : listeMembres){
-            QString nomComplet = QString("%1 %2").arg(membre.nom).arg(membre.prenom);
+            QString nomComplet = QString("%1 %2").arg(emprunt.membre.nom).arg(emprunt.membre.prenom);
             QStandardItem *item = new QStandardItem(nomComplet);
             modelM->appendRow(item);
         }
@@ -83,9 +83,9 @@ void NewEmpruntWindow::getList(){
 }
 
 void NewEmpruntWindow::setSelectedItems(){
-    if(livre.id > 0){
+    if(emprunt.livre.id > 0){
         for(int i = 0; i < listeLivres.length(); i++){
-            if(listeLivres[i].id == livre.id){
+            if(listeLivres[i].id == emprunt.livre.id){
                 ui->livresComboBox->setCurrentIndex(i+1);
                 ui->livresComboBox->setEditable(false);
                 ui->livresComboBox->setEnabled(false);
@@ -93,9 +93,9 @@ void NewEmpruntWindow::setSelectedItems(){
             }
         }
     }
-    if(membre.id > 0){
+    if(emprunt.membre.id > 0){
         for(int i = 0; i < listeMembres.length(); i++){
-            if(listeMembres[i].id == membre.id){
+            if(listeMembres[i].id == emprunt.membre.id){
                 ui->membreComboBox->setCurrentIndex(i+1);
                 ui->membreComboBox->setEditable(false);
                 ui->membreComboBox->setEnabled(false);
@@ -107,27 +107,41 @@ void NewEmpruntWindow::setSelectedItems(){
 
 void NewEmpruntWindow::on_validateEmpruntButton_clicked()
 {
-    int indexSelectedLivre = Util::getSelectedItem(ui->livresComboBox);
-    int indexSelectedMembre = Util::getSelectedItem(ui->membreComboBox);
-
-    if(indexSelectedMembre > -1 && indexSelectedLivre > -1){
-        livre = listeLivres[indexSelectedLivre];
-        membre = listeMembres[indexSelectedMembre];
-        QDate dateEmprunt = ui->dateUmpruntEdit->date();
-        Emprunt emprunt = Emprunt(livre,membre,dateEmprunt);
+    emprunt.dateEmprunt = ui->dateUmpruntEdit->date();
+    if(emprunt.id != 0){
         if(DatabaseManager::openConnection()){
-            BoolResult validation = Emprunt::validateEmprunt(emprunt);
-            if(validation.validate){
-                Emprunt::addEmprunt(emprunt);
-                QMessageBox::information(this, "Succès", "Emprunt enregistré !");
-                DatabaseManager::closeConnection();
-                this->close();
-            }else{
-                QMessageBox::critical(this, "Emprunt non autorisé", validation.message);
-                DatabaseManager::closeConnection();
+            Emprunt::updateEmprunt(emprunt);
+            QMessageBox::information(this, "Succès", "Date emprunt modifiié !");
+            DatabaseManager::closeConnection();
+            this->close();
+        }
+    }else{
+        int indexSelectedLivre = Util::getSelectedItem(ui->livresComboBox);
+        int indexSelectedMembre = Util::getSelectedItem(ui->membreComboBox);
+
+        if(indexSelectedMembre > -1 && indexSelectedLivre > -1){
+            emprunt.livre = listeLivres[indexSelectedLivre];
+            emprunt.membre = listeMembres[indexSelectedMembre];
+            if(DatabaseManager::openConnection()){
+                BoolResult validation = Emprunt::validateEmprunt(emprunt);
+                if(validation.validate){
+                    Emprunt::addEmprunt(emprunt);
+                    QMessageBox::information(this, "Succès", "Emprunt enregistré !");
+                    DatabaseManager::closeConnection();
+                    this->close();
+                }else{
+                    QMessageBox::critical(this, "Emprunt non autorisé", validation.message);
+                    DatabaseManager::closeConnection();
+                }
             }
         }
+
     }
 
 }
 
+
+void NewEmpruntWindow::closeEvent(QCloseEvent *event){
+    emit closeWindow();
+    QMainWindow::closeEvent(event);
+}

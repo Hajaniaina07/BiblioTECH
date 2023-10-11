@@ -1,7 +1,6 @@
 #include "livredetail.h"
 #include "ui_livredetail.h"
 #include "model/livre.h"
-#include "model/membre.h"
 #include "manager/DatabaseManager.h"
 #include "ui/newempruntwindow.h"
 #include <QMessageBox>
@@ -50,21 +49,21 @@ void LivreDetail::getList()
         ui->genreComboBox->addItem("");
         ui->genreComboBox_2->addItem("");
         listeCategories = Categorie::getAllCategories();
-        for(const Categorie categorie : listeCategories){
+        for(const Categorie &categorie : listeCategories){
             ui->genreComboBox->addItem(QString("%1").arg(categorie.nom));
             ui->genreComboBox_2->addItem(QString("%1").arg(categorie.nom));
         }
         ui->editeurComboBox->addItem("");
         ui->editeurComboBox_2->addItem("");
         listeEditeurs = Editeur::getAllEditeurs();
-        for(const Editeur editeur : listeEditeurs){
+        for(const Editeur &editeur : listeEditeurs){
             ui->editeurComboBox->addItem(QString("%1").arg(editeur.nom));
             ui->editeurComboBox_2->addItem(QString("%1").arg(editeur.nom));
         }
         ui->langueComboBox->addItem("");
         ui->langueComboBox_2->addItem("");
         listeLangues = Langue::getAllLangues();
-        for(const Langue langue : listeLangues){
+        for(const Langue &langue : listeLangues){
             ui->langueComboBox->addItem(QString("%1").arg(langue.nom));
             ui->langueComboBox_2->addItem(QString("%1").arg(langue.nom));
         }
@@ -212,10 +211,17 @@ void LivreDetail::on_saveEditButton_clicked()
 
 void LivreDetail::on_enregistrerEmpruntButton_clicked()
 {
-    Membre membre = Membre();
-    NewEmpruntWindow *w  = new NewEmpruntWindow(0,livre, membre,this);
+    Emprunt em;
+    em.livre = livre;
+    NewEmpruntWindow *w  = new NewEmpruntWindow(em,this);
+    connect(w, &NewEmpruntWindow::closeWindow, this, &LivreDetail::getList);
     w->setWindowTitle("Emprunt");
         w->setAttribute(Qt::WA_DeleteOnClose);
     w->show();
 }
 
+
+void LivreDetail::closeEvent(QCloseEvent *event){
+    emit closeWindow();
+    QMainWindow::closeEvent(event);
+}
