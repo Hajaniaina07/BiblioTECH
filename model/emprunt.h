@@ -26,6 +26,7 @@ public:
     static void updateEmprunt(const Emprunt& emprunt);
     static void deleteEmprunt(int empruntId);
     static int countNonRendue(int livre_id);
+    static double noteMoyenne(int livre_id);
     static BoolResult validateEmprunt(Emprunt  &emprunt);
 };
 

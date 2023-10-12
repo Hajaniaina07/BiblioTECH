@@ -1,5 +1,5 @@
 #include "Livre.h"
-
+#include "emprunt.h"
 
 
 Livre::Livre()
@@ -126,5 +126,7 @@ Livre Livre::setDetail(Livre livre) {
     livre.categorie = Categorie::getById(livre.categorie.id);
     livre.editeur = Editeur::getById(livre.editeur.id);
     livre.langue = Langue::getById(livre.langue.id);
+    livre.non_dispo = Emprunt::countNonRendue(livre.id);
+    livre.note = Emprunt::noteMoyenne(livre.id);
     return livre;
 }

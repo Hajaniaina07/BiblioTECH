@@ -16,6 +16,9 @@ NewEmpruntWindow::NewEmpruntWindow(Emprunt& emprunt, QWidget *parent) :
 {
     setFixedSize(320,250);
     ui->setupUi(this);
+    if(emprunt.id != 0){
+        ui->validateEmpruntButton->setText("Modifier la date");
+    }
     getList();
     setSelectedItems();
 }
@@ -112,7 +115,7 @@ void NewEmpruntWindow::on_validateEmpruntButton_clicked()
         emprunt.dateEmprunt = ui->dateUmpruntEdit->date();
         emprunt.dateMax = emprunt.dateEmprunt.addDays(maxDay);
         if(DatabaseManager::openConnection()){
-           // Emprunt::updateEmprunt(emprunt);
+            Emprunt::updateEmprunt(emprunt);
             QMessageBox::information(this, "Succès", "Date emprunt modifiié !");
             DatabaseManager::closeConnection();
             this->close();

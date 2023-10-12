@@ -115,7 +115,6 @@ void Emprunt::deleteEmprunt(int empruntId) {
 }
 
 int Emprunt::countNonRendue(int livre_id) {
-    qDebug() << livre_id;
     QSqlQuery query;
     query.prepare("SELECT COUNT(*) FROM emprunt WHERE LIVRE_ID = ? AND RENDUE = ?");
     query.addBindValue(livre_id);
@@ -130,6 +129,25 @@ int Emprunt::countNonRendue(int livre_id) {
         return query.value(0).toInt();
     }
     return -1;
+}
+
+
+
+double Emprunt::noteMoyenne(int livre_id) {
+    QSqlQuery query;
+    query.prepare("SELECT AVG(evaluation) FROM emprunt WHERE LIVRE_ID = ? AND RENDUE = ?");
+    query.addBindValue(livre_id);
+    query.addBindValue(true);
+
+    if (!query.exec()) {
+        return -1.0;
+    }
+
+    if (query.next()) {
+        return query.value(0).toDouble();
+    } else {
+        return 0.0;
+    }
 }
 
 
@@ -154,7 +172,7 @@ BoolResult Emprunt::validateEmprunt(Emprunt  &emprunt){
                     }
                 }
             }
-            if(nonRendue >= abonnement.maxEmpruntSimultane){
+            if(nonRendue == abonnement.maxEmpruntSimultane){
                 res.message = QString("%1 %2 a atteint le nombre maximum \n d'emprunts simultanés de %3 livres")
                 .arg(membre.nom).arg(membre.prenom).arg(abonnement.maxEmpruntSimultane);
             }else {
@@ -175,6 +193,5 @@ BoolResult Emprunt::validateEmprunt(Emprunt  &emprunt){
         res.validate = false;
     }
 
-    qDebug() << "Livre:" << totalNonRendue << totalLivre;
     return res;
 }

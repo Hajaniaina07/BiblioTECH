@@ -73,7 +73,6 @@ void EmpruntMenu::on_validateRendreButton_clicked()
     emprunt.dateRendue = ui->dateRemiseEdit->date();
     emprunt.note = note;
     emprunt.rendue = true;
-    qDebug() << emprunt.note << emprunt.dateRendue;
     if(DatabaseManager::openConnection()){
         Emprunt::updateEmprunt(emprunt);
         DatabaseManager::closeConnection();

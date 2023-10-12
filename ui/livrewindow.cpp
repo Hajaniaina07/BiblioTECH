@@ -101,7 +101,6 @@ void LivreWindow::addNew(QString nouveau){
 void LivreWindow::updateData(){
     QString nouveau = ui->tableWidget->item(selectedRow,0)->text();
     if (DatabaseManager::openConnection()) {
-        qDebug() << baseModel.id << baseModel.nom << nouveau;
         if (type == "categorie") {
             Categorie cat = listeCategories.at(selectedRow);
             cat.nom = nouveau;

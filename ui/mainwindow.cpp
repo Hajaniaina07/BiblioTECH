@@ -138,6 +138,20 @@ void  MainWindow::getListLivre()
             QTableWidgetItem *pageItem = new QTableWidgetItem(QString::number(livre.page));
             pageItem->setTextAlignment(Qt::AlignCenter | Qt::AlignVCenter);
 
+            QString dispo = QString("%1/%2").arg(livre.quantite-livre.non_dispo).arg(livre.quantite);
+            QTableWidgetItem *dispoItem = new QTableWidgetItem(dispo);
+            dispoItem->setTextAlignment(Qt::AlignCenter | Qt::AlignVCenter);
+
+            QString eval = livre.note > 0 ? QString::number(livre.note) : "-";
+            QTableWidgetItem *noteItem = new QTableWidgetItem(QString("%1").arg(eval));
+            QBrush brush = Util::couleurPourNote(livre.note);
+            noteItem->setForeground(brush);
+            noteItem->setTextAlignment(Qt::AlignCenter | Qt::AlignVCenter);
+            noteItem->setBackground(QBrush(Qt::black));
+            QFont fontNote = noteItem->font();
+            font.setBold(true);
+            noteItem->setFont(font);
+
             QTableWidgetItem *publicationItem = new QTableWidgetItem(livre.publication.toString("dd/MM/yyyy"));
             publicationItem->setTextAlignment(Qt::AlignCenter | Qt::AlignVCenter);
 
@@ -145,6 +159,8 @@ void  MainWindow::getListLivre()
             ui->livreTableWidget->setItem(row, 1, genreItem);
             ui->livreTableWidget->setItem(row, 2, new QTableWidgetItem(livre.auteur.prenom + " " +livre.auteur.nom));
             ui->livreTableWidget->setItem(row, 3, pageItem);
+            ui->livreTableWidget->setItem(row, 4, dispoItem);
+            ui->livreTableWidget->setItem(row, 5, noteItem);
             ui->livreTableWidget->setItem(row, 6, publicationItem);
 
             row++;
@@ -203,7 +219,7 @@ void MainWindow::getListEmprunts(){
 
     ui->empruntTableWidget->setColumnWidth(0, 170);
     ui->empruntTableWidget->setColumnWidth(1, 120);
-    ui->empruntTableWidget->setColumnWidth(2, 230);
+    ui->empruntTableWidget->setColumnWidth(2, 219);
 
     if(DatabaseManager::openConnection()){
         listeEmprunts = Emprunt::getAllEmprunts();
@@ -212,9 +228,9 @@ void MainWindow::getListEmprunts(){
             ui->empruntTableWidget->insertRow(row);
 
             QTableWidgetItem *titleItem = new QTableWidgetItem(emprunt.livre.titre);
-            QFont font = titleItem->font();
-            font.setBold(true);
-            titleItem->setFont(font);
+            QFont fontBold = titleItem->font();
+            fontBold.setBold(true);
+            titleItem->setFont(fontBold);
 
             QTableWidgetItem *genreItem = new QTableWidgetItem(emprunt.livre.categorie.nom);
             QTableWidgetItem *dateItem = new QTableWidgetItem(emprunt.dateEmprunt.toString("dd/MM/yyyy"));
@@ -238,9 +254,17 @@ void MainWindow::getListEmprunts(){
 
                 QString eval = emprunt.note > 0 ? QString::number(emprunt.note) : "-";
                 noteItem = new QTableWidgetItem(QString("%1").arg(eval));
-                QBrush brush = Util::couleurPourNote(emprunt.note);
-                noteItem->setForeground(brush);
             }
+
+
+            dateRenduItem->setBackground(QBrush(Qt::black));
+            dateRenduItem->setFont(fontBold);
+
+
+            QBrush brush = Util::couleurPourNote(emprunt.note);
+            noteItem->setForeground(brush);
+            noteItem->setBackground(QBrush(Qt::black));
+            noteItem->setFont(fontBold);
 
             genreItem->setTextAlignment(Qt::AlignCenter | Qt::AlignVCenter);
             dateItem->setTextAlignment(Qt::AlignCenter | Qt::AlignVCenter);
