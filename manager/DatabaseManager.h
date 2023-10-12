@@ -2,6 +2,7 @@
 #define DATABASEMANAGER_H
 
 #include <QSqlDatabase>
+#include <QSqlError>
 
 class DatabaseManager {
 public:

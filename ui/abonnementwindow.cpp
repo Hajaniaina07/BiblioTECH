@@ -54,7 +54,6 @@ void AbonnementWindow::getList(){
         listeAbonnements = Abonnement::getAllAbonnements();
         int row = 0;
         for (const Abonnement& abonnement : listeAbonnements) {
-            int row = ui->abonnementTableWidget->rowCount();
             ui->abonnementTableWidget->insertRow(row);
 
             QTableWidgetItem* itemNom = new QTableWidgetItem(abonnement.nom);
