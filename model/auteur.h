@@ -12,12 +12,11 @@ public:
     int id;
     QString nom;
     QString prenom;
-    QString pseudo;
     QDate naissance;
 
     Auteur();
-    Auteur(const QString& nom, const QString& prenom, const QString& pseudo, const QDate& naissance);
-    Auteur(int id, const QString& nom, const QString& prenom, const QString& pseudo, const QDate& naissance);
+    Auteur(const QString& nom, const QString& prenom, const QDate& naissance);
+    Auteur(int id, const QString& nom, const QString& prenom, const QDate& naissance);
 
     static void addAuteur(const Auteur& auteur);
     static QList<Auteur> getAllAuteurs();

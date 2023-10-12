@@ -41,7 +41,7 @@ Langue Langue::getById(int id) {
 
 QList<Langue> Langue::getAllLangues() {
     QList<Langue> Langues;
-    QSqlQuery query("SELECT * FROM Langue");
+    QSqlQuery query("SELECT * FROM Langue order by NOM");
 
     while (query.next()) {
         Langue Langue;

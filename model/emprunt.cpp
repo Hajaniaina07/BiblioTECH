@@ -122,7 +122,7 @@ int Emprunt::countNonRendue(int livre_id) {
 
     if(!query.exec()){
         qDebug() << "Erreur SQL:" << query.lastError().text();
-        return -1; // Valeur d'erreur, ajustez selon votre besoin
+        return -1;
     }
 
     if (query.next()) {
@@ -133,21 +133,36 @@ int Emprunt::countNonRendue(int livre_id) {
 
 
 
-double Emprunt::noteMoyenne(int livre_id) {
+int Emprunt::nbEmprunt(int livre_id) {
     QSqlQuery query;
-    query.prepare("SELECT AVG(evaluation) FROM emprunt WHERE LIVRE_ID = ? AND RENDUE = ?");
+    query.prepare("SELECT COUNT(*) FROM emprunt WHERE LIVRE_ID = ?");
     query.addBindValue(livre_id);
-    query.addBindValue(true);
 
-    if (!query.exec()) {
-        return -1.0;
+    if(!query.exec()){
+        qDebug() << "Erreur SQL:" << query.lastError().text();
+        return -1;
     }
 
     if (query.next()) {
-        return query.value(0).toDouble();
-    } else {
-        return 0.0;
+        return query.value(0).toInt();
     }
+    return -1;
+}
+
+std::pair<int, double> Emprunt::totalNavgNote(int livre_id) {
+    QSqlQuery query;
+    query.prepare("SELECT COUNT(*) AS CountNotes, AVG(evaluation) AS AvgNote FROM EMPRUNT WHERE livre_id = :livre_id AND rendue = true AND (evaluation IS NOT NULL OR evaluation <> 0)");
+    query.bindValue(":livre_id", livre_id);
+
+    int nombreNotesAjoutees = 0;
+    double moyenneDesNotes = 0.0;
+
+    if (query.exec() && query.next()) {
+        nombreNotesAjoutees = query.value(0).toInt();
+        moyenneDesNotes = query.value(1).toDouble();
+    }
+
+    return std::make_pair(nombreNotesAjoutees, moyenneDesNotes);
 }
 
 

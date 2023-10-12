@@ -16,9 +16,6 @@ NewEmpruntWindow::NewEmpruntWindow(Emprunt& emprunt, QWidget *parent) :
 {
     setFixedSize(320,250);
     ui->setupUi(this);
-    if(emprunt.id != 0){
-        ui->validateEmpruntButton->setText("Modifier la date");
-    }
     getList();
     setSelectedItems();
 }
@@ -86,6 +83,11 @@ void NewEmpruntWindow::getList(){
 }
 
 void NewEmpruntWindow::setSelectedItems(){
+    if(emprunt.id > 0){
+        ui->validateEmpruntButton->setText("Modifier la date");
+    }else{
+        ui->validateEmpruntButton->setText("Valider l'emprunt");
+    }
     if(emprunt.livre.id > 0){
         for(int i = 0; i < listeLivres.length(); i++){
             if(listeLivres[i].id == emprunt.livre.id){

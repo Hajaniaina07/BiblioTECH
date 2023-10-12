@@ -17,6 +17,7 @@ LivreWindow::~LivreWindow()
 }
 
 void LivreWindow::getList() {
+    selectedRow = -1;
     baseModels.clear();
     baseModel = BaseModel();
     if (type == "categorie") {

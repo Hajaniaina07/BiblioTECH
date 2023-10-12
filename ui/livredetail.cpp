@@ -8,7 +8,6 @@
 LivreDetail::LivreDetail(const int& page,Livre& livre, QWidget *parent) :
     QMainWindow(parent), ui(new Ui::LivreDetail), page(page),livre(livre)
 {
-    setFixedSize(640,480);
     ui->setupUi(this);
     ui->stackedWidget->setCurrentIndex(page);
 
@@ -42,7 +41,7 @@ void LivreDetail::getList()
         ui->auteurComboBox->addItem("");
         ui->auteurComboBox_2->addItem("");
         for(const Auteur &auteur : listeAuteurs){
-            QString nomComplet = QString("%1 %2 (%3)").arg(auteur.nom).arg(auteur.prenom).arg(auteur.pseudo);
+            QString nomComplet = QString("%1 %2").arg(auteur.prenom).arg(auteur.nom);
             ui->auteurComboBox->addItem(nomComplet);
             ui->auteurComboBox_2->addItem(nomComplet);
         }
@@ -75,14 +74,24 @@ void LivreDetail::setDetailLivre(){
     ui->titleLAbel->setText(livre.titre);
     ui->pageLabel->setText(QString("%1 %2").arg(livre.page).arg("Pages"));
     QString auteur = QString("%1 %2").arg(livre.auteur.prenom).arg(livre.auteur.nom);
-    if(!livre.auteur.pseudo.isNull() && !livre.auteur.pseudo.isEmpty())
-        auteur += QString(" (%1)").arg(livre.auteur.pseudo);
     ui->auteurLabel->setText(auteur);
     ui->editeurLabel->setText(livre.editeur.nom);
     ui->genreLabel->setText(livre.categorie.nom);
     ui->quantiteLabel->setText(QString("%1/%2").arg(livre.quantite).arg(livre.quantite));
     ui->langueLabel->setText(livre.langue.nom);
     ui->synopsisEdit->setPlainText(livre.resume);
+
+    QString dispo = QString("%1/%2").arg(livre.quantite-livre.non_dispo).arg(livre.quantite);
+    ui->quantiteLabel->setText(dispo);
+
+    QString eval = livre.note > 0 ? QString::number(livre.note) : "-";
+    ui->noteLabel->setText(eval);
+
+    QString vote = livre.vote > 0 ? QString::number(livre.vote) : "-";
+    ui->votesLabel->setText(vote);
+
+    QString vues = livre.vues > 0 ? QString::number(livre.vues) : "-";
+    ui->vuesLabel->setText(vues);
 
     int day = livre.publication.day();
     QString month = QLocale(QLocale::French).monthName(livre.publication.month());
@@ -92,7 +101,6 @@ void LivreDetail::setDetailLivre(){
 
     ui->publicationLabel->setText(formattedDate);
 }
-
 
 
 void LivreDetail::getLivre(Livre livre)

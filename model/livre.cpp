@@ -127,6 +127,9 @@ Livre Livre::setDetail(Livre livre) {
     livre.editeur = Editeur::getById(livre.editeur.id);
     livre.langue = Langue::getById(livre.langue.id);
     livre.non_dispo = Emprunt::countNonRendue(livre.id);
-    livre.note = Emprunt::noteMoyenne(livre.id);
+    std::pair<int, double> result = Emprunt::totalNavgNote(livre.id);
+    livre.vote = result.first;
+    livre.note = result.second;
+    livre.vues = Emprunt::nbEmprunt(livre.id);
     return livre;
 }

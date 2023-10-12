@@ -41,7 +41,7 @@ Categorie Categorie::getById(int id) {
 
 QList<Categorie> Categorie::getAllCategories() {
     QList<Categorie> Categories;
-    QSqlQuery query("SELECT * FROM Categorie");
+    QSqlQuery query("SELECT * FROM Categorie order by NOM");
 
     while (query.next()) {
         Categorie Categorie;

@@ -4,22 +4,21 @@ Auteur::Auteur()
 {
 }
 
-Auteur::Auteur(const QString& nom, const QString& prenom, const QString& pseudo, const QDate& naissance)
-    : nom(nom), prenom(prenom), pseudo(pseudo), naissance(naissance)
+Auteur::Auteur(const QString& nom, const QString& prenom, const QDate& naissance)
+    : nom(nom), prenom(prenom), naissance(naissance)
 {
 }
 
-Auteur::Auteur(int id, const QString& nom, const QString& prenom, const QString& pseudo, const QDate& naissance)
-    : id(id), nom(nom), prenom(prenom), pseudo(pseudo), naissance(naissance)
+Auteur::Auteur(int id, const QString& nom, const QString& prenom, const QDate& naissance)
+    : id(id), nom(nom), prenom(prenom), naissance(naissance)
 {
 }
 
 void Auteur::addAuteur(const Auteur& auteur) {
     QSqlQuery query;
-    query.prepare("INSERT INTO Auteur (nom, prenom, pseudo, naissance) VALUES (?, ?, ?, ?)");
+    query.prepare("INSERT INTO Auteur (nom, prenom, naissance) VALUES (?, ?, ?)");
     query.addBindValue(auteur.nom);
     query.addBindValue(auteur.prenom);
-    query.addBindValue(auteur.pseudo);
     query.addBindValue(auteur.naissance.toString("yyyy-MM-dd"));
 
     if (query.exec()) {
@@ -40,7 +39,6 @@ Auteur Auteur::getById(int id) {
         auteur.id = query.value("id").toInt();
         auteur.nom = query.value("nom").toString();
         auteur.prenom = query.value("prenom").toString();
-        auteur.pseudo = query.value("pseudo").toString();
         auteur.naissance = query.value("naissance").toDateTime().date();
     }
     return auteur;
@@ -48,14 +46,13 @@ Auteur Auteur::getById(int id) {
 
 QList<Auteur> Auteur::getAllAuteurs() {
     QList<Auteur> auteurs;
-    QSqlQuery query("SELECT * FROM Auteur");
+    QSqlQuery query("SELECT * FROM Auteur order by PRENOM, NOM");
 
     while (query.next()) {
         Auteur auteur;
         auteur.id = query.value("id").toInt();
         auteur.nom = query.value("nom").toString();
         auteur.prenom = query.value("prenom").toString();
-        auteur.pseudo = query.value("pseudo").toString();
         auteur.naissance = query.value("naissance").toDateTime().date();
 
         auteurs.append(auteur);
@@ -66,10 +63,9 @@ QList<Auteur> Auteur::getAllAuteurs() {
 
 void Auteur::updateAuteur(const Auteur& auteur) {
     QSqlQuery query;
-    query.prepare("UPDATE Auteur SET nom=?, prenom=?, pseudo=?, naissance=? WHERE id=?");
+    query.prepare("UPDATE Auteur SET nom=?, prenom=?, naissance=? WHERE id=?");
     query.addBindValue(auteur.nom);
     query.addBindValue(auteur.prenom);
-    query.addBindValue(auteur.pseudo);
     query.addBindValue(auteur.naissance.toString("yyyy-MM-dd"));
     query.addBindValue(auteur.id);
     if (query.exec()) {
@@ -95,7 +91,6 @@ void Auteur::deleteAuteur(int auteurId) {
 bool Auteur::operator==(const Auteur& other) const {
     return (this->nom == other.nom &&
             this->prenom == other.prenom &&
-            this->pseudo == other.pseudo &&
             this->naissance == other.naissance);
 }
 

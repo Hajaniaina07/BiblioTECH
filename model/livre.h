@@ -19,6 +19,10 @@ public:
     QDate publication;
     QString resume;
     int quantite;
+    int non_dispo;
+    double note;
+    int vues;
+    int vote;
 
     Livre();
     Livre(int id, const Auteur& auteur, const Categorie& categorie, const Editeur& editeur, const Langue& langue,

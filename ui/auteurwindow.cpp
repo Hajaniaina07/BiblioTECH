@@ -8,7 +8,6 @@ AuteurWindow::AuteurWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::AuteurWindow)
 {
-    setFixedSize(800,500);
     ui->setupUi(this);
     getList();
 }
@@ -22,9 +21,8 @@ void AuteurWindow::on_addButton_clicked()
 {
     QString nom = ui->nomEdit->text();
     QString prenom = ui->prenomEdit->text();
-    QString pseudo = ui->pseudoEdit->text();
     QDate date = ui->naissanceEdit->date();
-    addAuteur(Auteur(nom, prenom, pseudo, date));
+    addAuteur(Auteur(nom, prenom, date));
     getList();
 }
 
@@ -32,6 +30,9 @@ void AuteurWindow::addAuteur(const Auteur& auteur)
 {
     if (DatabaseManager::openConnection()) {
         Auteur::addAuteur(auteur);
+        ui->nomEdit->clear();
+        ui->prenomEdit->clear();
+        ui->naissanceEdit->clear();
         DatabaseManager::closeConnection();
     }
 }
@@ -46,9 +47,8 @@ void AuteurWindow::removeAuteur(const Auteur& auteur)
 
 void  AuteurWindow::getList()
 {
-//    ui->tableWidget->clear();
     ui->tableWidget->setRowCount(0);
-
+    ui->tableWidget->verticalHeader()->setVisible(false);
     setupTable();
 
     if (DatabaseManager::openConnection()) {
@@ -59,8 +59,9 @@ void  AuteurWindow::getList()
             ui->tableWidget->insertRow(row);
             ui->tableWidget->setItem(row, 0, new QTableWidgetItem(auteur.nom));
             ui->tableWidget->setItem(row, 1, new QTableWidgetItem(auteur.prenom));
-            ui->tableWidget->setItem(row, 2, new QTableWidgetItem(auteur.pseudo));
-            ui->tableWidget->setItem(row, 3, new QTableWidgetItem(auteur.naissance.toString("dd/MM/yyyy")));
+            QTableWidgetItem *naissanceItem = new QTableWidgetItem(auteur.naissance.toString("dd/MM/yyyy"));
+            naissanceItem->setTextAlignment(Qt::AlignCenter | Qt::AlignVCenter);
+            ui->tableWidget->setItem(row, 2, naissanceItem);
             row++;
         }
         DatabaseManager::closeConnection();
@@ -69,7 +70,7 @@ void  AuteurWindow::getList()
 
 void AuteurWindow::setupTable()
 {
-    int numberOfColumns = 5;
+    int numberOfColumns = 3;
     int columnWidth = ui->tableWidget->width() / numberOfColumns;
 
     for (int column = 0; column < numberOfColumns; ++column) {
@@ -90,10 +91,9 @@ void AuteurWindow::on_editButton_clicked()
         int row = listeAuteurs.indexOf(auteur);
         QString nom = ui->tableWidget->item(row, 0)->data(Qt::DisplayRole).toString();
         QString prenom = ui->tableWidget->item(row, 1)->data(Qt::DisplayRole).toString();
-        QString pseudo = ui->tableWidget->item(row, 2)->data(Qt::DisplayRole).toString();
-        QString naissance = ui->tableWidget->item(row, 3)->data(Qt::DisplayRole).toString();
+        QString naissance = ui->tableWidget->item(row, 2)->data(Qt::DisplayRole).toString();
 
-        bool edited = (auteur.nom!=nom || auteur.prenom!=prenom || auteur.pseudo != pseudo
+        bool edited = (auteur.nom!=nom || auteur.prenom!=prenom
                        || auteur.naissance.toString("dd/MM/yyyy") != naissance);
 
         if(edited){
@@ -102,7 +102,7 @@ void AuteurWindow::on_editButton_clicked()
                 QMessageBox::StandardButton reply;
                 reply = QMessageBox::question(this, "Confirmation", "Voulez-vous vraiment modifier " + auteur.nom +" "+ auteur.prenom, QMessageBox::Yes|QMessageBox::No);
                 if (reply == QMessageBox::Yes) {
-                    auteur.nom=nom; auteur.prenom=prenom ; auteur.pseudo = pseudo;
+                    auteur.nom=nom; auteur.prenom=prenom ;
                     auteur.naissance = date;
                     if (DatabaseManager::openConnection()) {
                         Auteur::updateAuteur(auteur);

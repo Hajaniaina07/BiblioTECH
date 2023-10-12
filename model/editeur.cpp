@@ -41,7 +41,7 @@ Editeur Editeur::getById(int id) {
 
 QList<Editeur> Editeur::getAllEditeurs() {
     QList<Editeur> Editeurs;
-    QSqlQuery query("SELECT * FROM Editeur");
+    QSqlQuery query("SELECT * FROM Editeur order by NOM");
 
     while (query.next()) {
         Editeur Editeur;
