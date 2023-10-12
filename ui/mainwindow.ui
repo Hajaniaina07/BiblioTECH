@@ -580,7 +580,7 @@ Emprunts</string>
        <widget class="QLabel" name="label_4">
         <property name="geometry">
          <rect>
-          <x>350</x>
+          <x>260</x>
           <y>0</y>
           <width>191</width>
           <height>41</height>
@@ -663,6 +663,19 @@ Emprunts</string>
           <string>Note /10</string>
          </property>
         </column>
+       </widget>
+       <widget class="QPushButton" name="refreshButton">
+        <property name="geometry">
+         <rect>
+          <x>600</x>
+          <y>0</y>
+          <width>111</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Raffraichir</string>
+        </property>
        </widget>
       </widget>
      </widget>

@@ -355,3 +355,9 @@ void MainWindow::on_empruntTableWidget_cellDoubleClicked(int row)
     w->show();
 }
 
+
+void MainWindow::on_refreshButton_clicked()
+{
+    getListEmprunts();
+}
+

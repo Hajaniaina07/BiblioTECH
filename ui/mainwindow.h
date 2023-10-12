@@ -66,6 +66,8 @@ private slots:
 
     void on_empruntTableWidget_cellDoubleClicked(int row);
 
+    void on_refreshButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     QSqlDatabase db;

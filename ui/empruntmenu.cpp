@@ -28,6 +28,7 @@ void EmpruntMenu::on_rendreButton_clicked()
         if (reply == QMessageBox::Yes) {
             emprunt.dateRendue = QDate();
             emprunt.note = 0;
+            emprunt.rendue = false;
             if(DatabaseManager::openConnection()){
                 Emprunt::updateEmprunt(emprunt);
                 DatabaseManager::closeConnection();
@@ -71,6 +72,7 @@ void EmpruntMenu::on_validateRendreButton_clicked()
     double note = ui->noteSpinBox->value();
     emprunt.dateRendue = ui->dateRemiseEdit->date();
     emprunt.note = note;
+    emprunt.rendue = true;
     qDebug() << emprunt.note << emprunt.dateRendue;
     if(DatabaseManager::openConnection()){
         Emprunt::updateEmprunt(emprunt);
