@@ -42,7 +42,7 @@ Abonnement Abonnement::getById(int id) {
 QList<Abonnement> Abonnement::getAllAbonnements() {
     QList<Abonnement> listeAbonnements;
 
-    QSqlQuery query("SELECT * FROM Abonnement");
+    QSqlQuery query("SELECT * FROM Abonnement order by duree");
     while (query.next()) {
         Abonnement abonnement;
         abonnement.id = query.value("id").toInt();

@@ -17,6 +17,7 @@ public:
     ~AbonnementWindow();
 
     void getList();
+    bool validate();
 
 private slots:
     void on_addNewButton_clicked();
@@ -24,6 +25,12 @@ private slots:
     void on_abonnementTableWidget_cellDoubleClicked(int row);
 
     void update();
+
+    void on_cancelButton_clicked();
+
+    void on_editButton_clicked();
+
+    void on_deleteButton_clicked();
 
 private:
     Ui::AbonnementWindow *ui;
