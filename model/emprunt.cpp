@@ -46,6 +46,7 @@ QList<Emprunt> Emprunt::getAllEmprunts() {
         emprunt.dateMax = query.value("date_max").toDate();
         emprunt.dateRendue = query.value("date_rendue").toDate();
         emprunt.note = query.value("evaluation").toDouble();
+        emprunt.rendue = query.value("rendue").toBool();
         emprunt.membre = Membre::getById(emprunt.membre.id);
         emprunt.livre= Livre::findLivreById(emprunt.livre.id);
         listeEmprunts.append(emprunt);
@@ -71,6 +72,7 @@ QList<Emprunt> Emprunt::getTopLatest(int idMembre) {
             emprunt.dateMax = query.value("date_max").toDate();
             emprunt.dateRendue = query.value("date_rendue").toDate();
             emprunt.note = query.value("evaluation").toDouble();
+            emprunt.rendue = query.value("rendue").toBool();
             emprunt.livre = Livre::findLivreById(emprunt.livre.id);
             listeEmprunts.append(emprunt);
         }
@@ -84,7 +86,7 @@ QList<Emprunt> Emprunt::getTopLatest(int idMembre) {
 
 void Emprunt::updateEmprunt(const Emprunt& emprunt) {
     QSqlQuery query;
-    query.prepare("UPDATE Emprunt SET livre_id = ?, membre_id = ?, date_emprunt = ?, date_max = ?, date_rendue = ?, evaluation = ? "
+    query.prepare("UPDATE Emprunt SET livre_id = ?, membre_id = ?, date_emprunt = ?, date_max = ?, date_rendue = ?, evaluation = ?, rendue = ? "
                   "WHERE id = ?");
 
     query.addBindValue(emprunt.livre.id);
@@ -93,6 +95,7 @@ void Emprunt::updateEmprunt(const Emprunt& emprunt) {
     query.addBindValue(emprunt.dateMax.toString("yyyy-MM-dd"));
     query.addBindValue(emprunt.dateRendue.toString("yyyy-MM-dd"));
     query.addBindValue(emprunt.note);
+    query.addBindValue(emprunt.rendue);
     query.addBindValue(emprunt.id);
 
     if (!query.exec()) {
@@ -112,18 +115,23 @@ void Emprunt::deleteEmprunt(int empruntId) {
 }
 
 int Emprunt::countNonRendue(int livre_id) {
+    qDebug() << livre_id;
     QSqlQuery query;
-    query.prepare("SELECT COUNT(*) FROM emprunt WHERE livre_id = ? "
-                  "AND (date_rendue IS NULL OR date_rendue = '' OR date_rendue = 'Invalid')");
+    query.prepare("SELECT COUNT(*) FROM emprunt WHERE LIVRE_ID = ? AND RENDUE = ?");
     query.addBindValue(livre_id);
+    query.addBindValue(false);
 
-    if (query.exec() && query.next()) {
-        return query.value(0).toInt();
-    } else {
+    if(!query.exec()){
         qDebug() << "Erreur SQL:" << query.lastError().text();
         return -1; // Valeur d'erreur, ajustez selon votre besoin
     }
+
+    if (query.next()) {
+        return query.value(0).toInt();
+    }
+    return -1;
 }
+
 
 
 BoolResult Emprunt::validateEmprunt(Emprunt  &emprunt){

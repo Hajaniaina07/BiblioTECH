@@ -91,6 +91,7 @@ void EmpruntMenu::setMenu()
 {
     if(emprunt.dateRendue.isValid()){
         ui->rendreButton->setText("Annuler la remise");
+        ui->editDateButton->setEnabled(false);
     }else {
         ui->rendreButton->setText("Rendre");
         ui->editDateButton->setEnabled(true);

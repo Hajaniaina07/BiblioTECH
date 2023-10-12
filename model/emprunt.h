@@ -15,6 +15,7 @@ public:
     QDate dateMax;
     QDate dateRendue;
     double note;
+    bool rendue;
 
     Emprunt();
     Emprunt(const Livre& livre, const Membre& membre, const QDate& dateEmprunt);

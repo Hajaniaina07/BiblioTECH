@@ -216,26 +216,49 @@ void MainWindow::getListEmprunts(){
             font.setBold(true);
             titleItem->setFont(font);
 
-            ui->empruntTableWidget->setItem(row, 0, titleItem);
-            ui->empruntTableWidget->setItem(row, 1, new QTableWidgetItem(emprunt.livre.categorie.nom));
-            ui->empruntTableWidget->setItem(row, 2, new QTableWidgetItem(QString("%1 %2").arg(emprunt.membre.nom).arg(emprunt.membre.prenom)));
-            ui->empruntTableWidget->setItem(row, 3, new QTableWidgetItem(emprunt.dateEmprunt.toString("dd/MM/yyyy")));
-            ui->empruntTableWidget->setItem(row, 4, new QTableWidgetItem(emprunt.dateMax.toString("dd/MM/yyyy")));
-            if(!emprunt.dateRendue.isValid()){
+            QTableWidgetItem *genreItem = new QTableWidgetItem(emprunt.livre.categorie.nom);
+            QTableWidgetItem *dateItem = new QTableWidgetItem(emprunt.dateEmprunt.toString("dd/MM/yyyy"));
+            QTableWidgetItem *dateMaxItem = new QTableWidgetItem(emprunt.dateMax.toString("dd/MM/yyyy"));
+
+            QTableWidgetItem *dateRenduItem;
+            QTableWidgetItem *noteItem;
+
+            if(!emprunt.rendue){
                 QDate now = QDate::currentDate();
                 if(emprunt.dateMax < now){
                     ui->empruntTableWidget->item(row,4)->setForeground(QBrush(Qt::red));
                 }
-                ui->empruntTableWidget->setItem(row, 6, new QTableWidgetItem("-"));
+                dateRenduItem = new QTableWidgetItem("-");
+                noteItem = new QTableWidgetItem("-");
             }else{
-                ui->empruntTableWidget->setItem(row, 5, new QTableWidgetItem(emprunt.dateRendue.toString("dd/MM/yyyy")));
+                dateRenduItem = new QTableWidgetItem(emprunt.dateRendue.toString("dd/MM/yyyy"));
                 if(emprunt.dateRendue <= emprunt.dateMax){
-                    ui->empruntTableWidget->item(row,5)->setForeground(QBrush(Qt::green));
-                }else ui->empruntTableWidget->item(row,5)->setForeground(QBrush(Qt::red));
-                ui->empruntTableWidget->setItem(row, 6, new QTableWidgetItem(QString("%1").arg(emprunt.note)));
+                    dateRenduItem->setForeground(QBrush(Qt::green));
+                }else dateRenduItem->setForeground(QBrush(Qt::red));
+
+                QString eval = emprunt.note > 0 ? QString::number(emprunt.note) : "-";
+                noteItem = new QTableWidgetItem(QString("%1").arg(eval));
                 QBrush brush = Util::couleurPourNote(emprunt.note);
-                ui->empruntTableWidget->item(row,6)->setForeground(brush);
+                noteItem->setForeground(brush);
             }
+
+            genreItem->setTextAlignment(Qt::AlignCenter | Qt::AlignVCenter);
+            dateItem->setTextAlignment(Qt::AlignCenter | Qt::AlignVCenter);
+            dateMaxItem->setTextAlignment(Qt::AlignCenter | Qt::AlignVCenter);
+            dateRenduItem->setTextAlignment(Qt::AlignCenter | Qt::AlignVCenter);
+            noteItem->setTextAlignment(Qt::AlignCenter | Qt::AlignVCenter);
+
+
+
+            ui->empruntTableWidget->setItem(row, 0, titleItem);
+            ui->empruntTableWidget->setItem(row, 1, genreItem);
+            ui->empruntTableWidget->setItem(row, 2, new QTableWidgetItem(QString("%1 %2")
+                        .arg(emprunt.membre.nom).arg(emprunt.membre.prenom)));
+            ui->empruntTableWidget->setItem(row, 3, dateItem);
+            ui->empruntTableWidget->setItem(row, 4,dateMaxItem);
+            ui->empruntTableWidget->setItem(row, 5, dateRenduItem);
+            ui->empruntTableWidget->setItem(row, 6, noteItem);
+
 
             row ++;
         }
