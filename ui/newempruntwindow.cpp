@@ -35,10 +35,10 @@ void NewEmpruntWindow::getList(){
         ui->livresComboBox->setEditable(true);
 
         QStandardItemModel *model = new QStandardItemModel(this);
-        model->appendRow(new QStandardItem(""));  // Ajoutez une ligne vide
+        model->appendRow(new QStandardItem(""));
 
         for (const Livre &livre : listeLivres) {
-            QString nomComplet = QString("%1 | %2 %3").arg(livre.titre).arg(livre.auteur.prenom).arg(emprunt.livre.auteur.nom);
+            QString nomComplet = QString("%1 | %2 %3").arg(livre.titre).arg(livre.auteur.prenom).arg(livre.auteur.nom);
             QStandardItem *item = new QStandardItem(nomComplet);
             model->appendRow(item);
         }

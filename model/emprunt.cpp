@@ -5,7 +5,7 @@
 #include <QSqlError>
 
 
-Emprunt::Emprunt() {
+Emprunt::Emprunt(): id(0) {
 }
 
 Emprunt::Emprunt(const Livre& livre, const Membre& membre, const QDate& dateEmprunt)

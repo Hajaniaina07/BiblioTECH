@@ -125,10 +125,18 @@ void LivreDetail::on_addLivreButton_clicked()
     QString titre = ui->titreEdit->text();
     QString resume = ui->resumeTextEdit->toPlainText();
     QDate publication = ui->publicationDateEdit->date();
-    Auteur auteur = listeAuteurs[indexSelectedAuteur];
-    Categorie categorie = listeCategories[indexSelectedCategorie];
-    Editeur editeur = listeEditeurs[indexSelectedEditeur];
-    Langue langue = listeLangues[indexSelectedLangue];
+    Auteur auteur;
+    if(indexSelectedAuteur >= 0)
+        auteur = listeAuteurs[indexSelectedAuteur];
+    Categorie categorie;
+    if(indexSelectedCategorie >= 0)
+        categorie = listeCategories[indexSelectedCategorie];
+    Editeur editeur;
+    if(indexSelectedEditeur >= 0)
+        editeur = listeEditeurs[indexSelectedEditeur];
+    Langue langue;
+    if(indexSelectedLangue >= 0)
+        langue = listeLangues[indexSelectedLangue];
     Livre livre = Livre(auteur, categorie, editeur, langue, titre, page, publication, resume, quantite);
     if(DatabaseManager::openConnection()){
         Livre::addLivre(livre);
@@ -197,10 +205,20 @@ void LivreDetail::on_saveEditButton_clicked()
         QString titre = ui->titreEdit_2->text();
         QString resume = ui->resumeTextEdit_2->toPlainText();
         QDate publication = ui->publicationDateEdit_2->date();
-        Auteur auteur = listeAuteurs[indexSelectedAuteur];
-        Categorie categorie = listeCategories[indexSelectedCategorie];
-        Editeur editeur = listeEditeurs[indexSelectedEditeur];
-        Langue langue = listeLangues[indexSelectedLangue];
+
+        Auteur auteur;
+        if(indexSelectedAuteur >= 0)
+            auteur = listeAuteurs[indexSelectedAuteur];
+        Categorie categorie;
+        if(indexSelectedCategorie >= 0)
+            categorie = listeCategories[indexSelectedCategorie];
+        Editeur editeur;
+            if(indexSelectedEditeur >= 0)
+        editeur = listeEditeurs[indexSelectedEditeur];
+        Langue langue;
+            if(indexSelectedLangue >= 0)
+        langue = listeLangues[indexSelectedLangue];
+
         livre = Livre(livre.id, auteur, categorie, editeur, langue, titre, page, publication, resume, quantite);
         if(DatabaseManager::openConnection()){
             Livre::updateLivre(livre);
